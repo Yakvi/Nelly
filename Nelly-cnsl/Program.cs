@@ -1,12 +1,18 @@
 ﻿using System;
 
-namespace Nelly_cnsl
+namespace Nelly
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.WriteLine("Привет!");
+        }
+
+        public static int Answer()
+        {
+            return  42;
         }
     }
 }
