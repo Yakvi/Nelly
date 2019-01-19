@@ -11,5 +11,6 @@ namespace Nelly.Tests
         {
             Assert.AreEqual(42, Program.Answer());
         }
+        
     }
 }

@@ -1,18 +1,74 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
+using Nelly.Logic;
 
+[assembly : InternalsVisibleTo("Nelly_cnsl.Tests")]
 namespace Nelly
 {
-    public class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        internal static void Main(string[] args)
         {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
-            Console.WriteLine("Привет!");
+            GameState gameState = Start();
+            while (gameState.IsRunning)
+            {
+                Update(gameState);
+            }
         }
 
-        public static int Answer()
+        private static GameState Start()
         {
-            return  42;
+            var gameState = new GameState();
+            // Welcome message
+            Render.Clear();
+            Render.String("НА СВОИХ ДВОИХ");
+            Render.String("");
+            Render.String("");
+            Render.String("");
+            Render.String("Версия 0.001 (прототип)");
+            Render.String("");
+
+            Input.Any();
+            Render.Process(gameState.QueuedStrings);
+
+            return gameState;
+        }
+
+        internal void assert(bool condition)
+        {
+            if (!condition)
+            {
+                throw new InvalidProgramException();
+            }
+        }
+
+        internal static void Update(GameState gameState)
+        {
+            if (gameState.ActionNecessary)
+            {
+                var input = new Input();
+
+                if (input.Cmd == Command.Exit)
+                {
+                    gameState.IsRunning = false;
+                }
+                else
+                {
+                    gameState.GetNextSlide(input.Cmd);
+                }
+            }
+            else
+            {
+                Input.Any();
+                gameState.GetNextSlide();
+            }
+            Render.Process(gameState.QueuedStrings);
+
+        }
+
+        internal static int Answer()
+        {
+            return 42;
         }
     }
 }
