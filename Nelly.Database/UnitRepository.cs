@@ -12,19 +12,21 @@ namespace Nelly.Database
         {
             units = new List<Unit>();
 
+            // Cutscene and first quest
             units.Add(new Unit("cutscene1.txt", guid++));
-            units.Add(new Unit("choice1.txt", guid++));
-            units.Add(new Unit("cutscene2.txt", guid++));
+
+            // How do you want to get there? 
+            // 0. Bus
+            // 1. Tram
+            var choice1 = new Unit("choice1.txt", guid++);
+            units.Add(choice1);
+
+            // Bus 
+            units.Add(new Unit("cutscene2.txt", guid));
+            choice1.AddNextUnitId(guid, 0);
+            ++guid;
 
             return units[0];
-        }
-
-        internal static int Add(Unit unit)
-        {
-            units.Add(unit);
-            ++guid;
-            
-            return guid;
         }
 
         internal static Unit Get(int index)

@@ -7,32 +7,41 @@ namespace Nelly
     {
         internal Input()
         {
-            Value = Console.ReadLine();
-            switch (Value.ToLower())
+            Cmd = Command.Any;
+        }
+
+        internal void Read(char Value)
+        {
+            switch (Value)
             {
-                case "1":
+                case '1':
                     Cmd = Command.First;
                     break;
-                case "2":
+                case '2':
                     Cmd = Command.Second;
                     break;
-                case "3":
+                case '3':
                     Cmd = Command.Third;
                     break;
-                case "4":
+                case '4':
                     Cmd = Command.Fourth;
                     break;
-                case "выход":
-                case "exit":
+                case 'в': // RU
+                case 'В':
+                case 'e': // EN
+                case 'E':
                     Cmd = Command.Exit;
                     break;
-                case "старт":
-                case "начать":
-                case "start":
+                case 'с': // RU
+                case 'С': 
+                case 's': // EN
+                case 'S':
                     Cmd = Command.Start;
                     break;
-                case "заново":
-                case "restart":
+                case 'з': // RU
+                case 'З':
+                case 'r': // EN
+                case 'R':
                     Cmd = Command.Restart;
                     break;
 
@@ -41,11 +50,13 @@ namespace Nelly
                     break;
             }
         }
-        internal static void Any()
+
+        internal void Any(string message)
         {
             Render.String("");
-            Render.String("Далее ...");
-            Console.ReadKey(true);
+            Render.String(message);
+            var key = Console.ReadKey(true);
+            Read(key.KeyChar);
         }
 
         public Command Cmd { get; set; }

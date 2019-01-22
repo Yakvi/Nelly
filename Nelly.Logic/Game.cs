@@ -22,7 +22,7 @@ namespace Nelly.Logic
                 }
                 else
                 {
-                    gameState.CurrentUnit = unit.SelectNext((int) cmd);
+                    gameState.CurrentUnit = unit.GetNextUnit((int) cmd);
                 }
 
                 gameState.ActionNecessary = unit.ActionNecessary;

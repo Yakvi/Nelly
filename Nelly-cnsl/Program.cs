@@ -5,10 +5,13 @@ using Nelly.Logic;
 [assembly : InternalsVisibleTo("Nelly_cnsl.Tests")]
 namespace Nelly
 {
+
     internal class Program
     {
+        private static Input input { get; set; }
         internal static void Main(string[] args)
         {
+            input = new Input();
             GameState gameState = Start();
             while (gameState.IsRunning)
             {
@@ -28,7 +31,7 @@ namespace Nelly
             Render.String("Версия 0.0.0.2 (прототип)");
             Render.String("");
 
-            Input.Any();
+            input.Any("Нажмите любую клавишу, чтобы продолжить.");
             Render.Process(gameState.QueuedStrings);
 
             return gameState;
@@ -44,25 +47,23 @@ namespace Nelly
 
         internal static void Update(GameState gameState)
         {
-            if (gameState.ActionNecessary)
-            {
-                var input = new Input();
+            // Get input
+            string message = gameState.ActionNecessary ? "Ваш выбор?" : "Далее...";
 
-                if (input.Cmd == Command.Exit)
-                {
-                    gameState.IsRunning = false;
-                }
-                else
-                {
-                    gameState.GetNextSlide(input.Cmd);
-                }
+            if (input.Cmd == Command.Exit)
+            {
+                gameState.IsRunning = false;
             }
             else
             {
-                Input.Any();
-                gameState.GetNextSlide();
+                gameState.GetNextSlide(input.Cmd);
             }
-            Render.Process(gameState.QueuedStrings);
+
+            if (gameState.QueuedStrings.Count > 0)
+            {
+                Render.Process(gameState.QueuedStrings);
+                input.Any(message);
+            }
 
         }
 

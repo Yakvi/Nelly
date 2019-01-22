@@ -11,13 +11,14 @@ namespace Nelly.Database
         public int Id { get; }
 
         private List<Slide> slides { get; set; }
-        private int currentSlideIndex = 0;
         private int[] nextUnitIds { get; set; }
+        private int currentSlideIndex = 0;
 
         public Unit(string fileName, int index)
         {
             Id = index;
             slides = new List<Slide>();
+            nextUnitIds = new int[3];
             CreateSlides(ReadFile(fileName));
         }
 
@@ -39,7 +40,7 @@ namespace Nelly.Database
 
         private void AddChoice(string[] source, Slide slide)
         {
-            nextUnitIds = new int[source.Length - 1];
+            ActionNecessary = true;
 
             slide.Strings.Add(source[0]);
             for (int i = 1; i < source.Length; i++)
@@ -99,18 +100,39 @@ namespace Nelly.Database
 
         }
 
-        public Unit SelectNext(int cmd)
+        public void AddNextUnitId(int id, int index)
         {
-            Unit result = UnitRepository.Get(Id + 1);
+            nextUnitIds[index] = id;
+        }
+
+        public void AddNext(int id)
+        {
+            AddNextUnitId(id, 0);
+        }
+
+        public Unit GetNextUnit(int cmd)
+        {
+            var nextId = Id + 1;
+            if (ActionNecessary)
+            {
+                if (cmd < nextUnitIds.Length && nextUnitIds[cmd] != 0)
+                {
+                    nextId = nextUnitIds[cmd];
+                    ActionNecessary = false;
+                }
+                else
+                {
+                    nextId = Id;
+                    currentSlideIndex = 0;
+                }
+            }
+            else if (nextUnitIds[0] != 0)
+            {
+                nextId = nextUnitIds[0];
+            }
+
+            Unit result = UnitRepository.Get(nextId);
             return result;
-            // {
-            //     slide = Slides.Get(slide.NextSlideIds[selection]);
-            //     gameState.ActionNecessary = false;
-            // }
-            // else
-            // {
-            //     gameState.QueueString("Введено неверное значение");
-            // }
         }
     }
 }
