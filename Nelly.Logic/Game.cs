@@ -8,51 +8,29 @@ namespace Nelly.Logic
     {
         public static void GetNextSlide(this GameState gameState, Command cmd)
         {
-            Slide slide = FetchSlide(gameState, (int)cmd);
+            var unit = gameState.CurrentUnit;
 
-            if (slide != null)
+            if (unit != null)
             {
-                foreach (var str in slide.Strings)
+                Slide slide = unit.GetNextSlide();
+                if (slide != null)
                 {
-                    gameState.QueueString(str);
-                }
-
-                if (slide.NextSlideIds.Count > 1)
-                {
-                    gameState.ActionNecessary = true;
-                }
-                else if (slide.NextSlideIds.Count > 0)
-                {
-                    gameState.NextSlide = Slides.Get(slide.NextSlideIds[0]);
+                    foreach (var str in slide.Strings)
+                    {
+                        gameState.QueueString(str);
+                    }
                 }
                 else
                 {
-                    gameState.NextSlide = null;
+                    gameState.CurrentUnit = unit.SelectNext((int) cmd);
                 }
+
+                gameState.ActionNecessary = unit.ActionNecessary;
             }
             else
             {
                 gameState.IsRunning = false;
             }
-        }
-
-        private static Slide FetchSlide(GameState gameState, int selection)
-        {
-            var slide = gameState.NextSlide;
-            if (gameState.ActionNecessary)
-            {
-                if (selection <= slide.NextSlideIds.Count)
-                {
-                    slide = Slides.Get(slide.NextSlideIds[selection]);
-                    gameState.ActionNecessary = false;
-                }
-                else
-                {
-                    gameState.QueueString("Введено неверное значение");
-                }
-            }
-
-            return slide;
         }
 
         public static void GetNextSlide(this GameState gameState)

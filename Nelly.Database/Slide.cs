@@ -4,14 +4,14 @@ namespace Nelly.Database
 {
     public class Slide
     {
-        public Slide(string str)
+        public Slide()
         {
             ID = _idCounter++;
             Strings = new List<string>();
             NextSlideIds = new List<int>();
 
 
-            Strings.Add(str);   
+            Strings.Add("");   
         }
         public List<string> Strings { get; set; }
         public List<int> NextSlideIds { get; set; }

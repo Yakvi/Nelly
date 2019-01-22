@@ -10,7 +10,7 @@ namespace Nelly.Logic
         {
             IsRunning = true;
             ActionNecessary = false;
-            NextSlide = Slides.First();
+            CurrentUnit = UnitRepository.Initialize();
 
             QueueString("Добро пожаловать!");
             QueueString("Эта версия игры выполнена в командной строке.");
@@ -25,7 +25,7 @@ namespace Nelly.Logic
         public List<string> QueuedStrings = new List<string>();
         public bool IsRunning { get; set; }
         public bool ActionNecessary { get; set; }
-        public Slide NextSlide { get; set; }
+        public Unit CurrentUnit { get; set; }
 
     }
 }

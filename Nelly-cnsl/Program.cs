@@ -25,7 +25,7 @@ namespace Nelly
             Render.String("");
             Render.String("");
             Render.String("");
-            Render.String("Версия 0.001 (прототип)");
+            Render.String("Версия 0.0.0.2 (прототип)");
             Render.String("");
 
             Input.Any();
