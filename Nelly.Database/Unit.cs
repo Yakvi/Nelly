@@ -77,7 +77,7 @@ namespace Nelly.Database
             }
         }
 
-        private static string[] ReadFile(string fileName)
+        private string[] ReadFile(string fileName)
         {
             string[] source = null;
             if (File.Exists(fileName))
@@ -100,25 +100,27 @@ namespace Nelly.Database
 
         }
 
-        public void AddNextUnitId(int id, int index)
+        public void SetNextUnitId(int id, int index)
         {
             nextUnitIds[index] = id;
         }
 
         public void AddNext(int id)
         {
-            AddNextUnitId(id, 0);
+            SetNextUnitId(id, 0);
         }
 
         public Unit GetNextUnit(int cmd)
         {
+            Reset();
+
             var nextId = Id + 1;
             if (ActionNecessary)
             {
                 if (cmd < nextUnitIds.Length && nextUnitIds[cmd] != 0)
                 {
                     nextId = nextUnitIds[cmd];
-                    ActionNecessary = false;
+                    //ActionNecessary = false;
                 }
                 else
                 {
@@ -132,7 +134,13 @@ namespace Nelly.Database
             }
 
             Unit result = UnitRepository.Get(nextId);
+
             return result;
+        }
+
+        public void Reset()
+        {
+            currentSlideIndex = 0;
         }
     }
 }

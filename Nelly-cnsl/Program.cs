@@ -15,7 +15,7 @@ namespace Nelly
             GameState gameState = Start();
             while (gameState.IsRunning)
             {
-                Update(gameState);
+                Update(ref gameState);
             }
         }
 
@@ -45,18 +45,24 @@ namespace Nelly
             }
         }
 
-        internal static void Update(GameState gameState)
+        internal static void Update(ref GameState gameState)
         {
             // Get input
-            string message = gameState.ActionNecessary ? "Ваш выбор?" : "Далее...";
+            string message = "Далее...";
 
-            if (input.Cmd == Command.Exit)
+            switch (input.Cmd)
             {
-                gameState.IsRunning = false;
-            }
-            else
-            {
-                gameState.GetNextSlide(input.Cmd);
+                case Command.Exit:
+                    gameState.IsRunning = false;
+                    break;
+                case Command.Restart:
+                    gameState.CurrentUnit.Reset();
+                    gameState = new GameState();
+                    break;
+                default:
+                    gameState.GetNextSlide(input.Cmd);
+                    if (gameState.ActionNecessary) message = "Ваш выбор?";
+                    break;
             }
 
             if (gameState.QueuedStrings.Count > 0)
