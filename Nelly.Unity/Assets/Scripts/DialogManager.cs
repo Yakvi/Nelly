@@ -6,18 +6,17 @@ using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviour
 {
-    private readonly int buttonCount = 4;
     public GameObject MainTextArea;
     public Image Image;
     public TMButton[] Buttons;
 
-    // Start is called before the first frame update
-    // void Start()
-    // {
-    //     Buttons = new TMButton[buttonCount];
-    // }
+    private InputManager inputManager;
 
-    // Update is called once per frame
+    void Start()
+    {
+        inputManager = GameObject.Find("EventSystem").GetComponent<InputManager>();
+    }
+
     void Update()
     {
         for (int i = 0; i < Buttons.Length; i++)
@@ -25,14 +24,8 @@ public class DialogManager : MonoBehaviour
             var button = Buttons[i];
             if (button)
             {
-                if (String.IsNullOrWhiteSpace(button.Text))
-                {
-                    button.This.SetActive(false);
-                }
-                else
-                {
-                    button.This.SetActive(true);
-                }
+                var text = (inputManager.Actions[i] || button.IsClicked) ? "Button Pressed" : i.ToString();
+                button.SetText(text);
             }
         }
     }

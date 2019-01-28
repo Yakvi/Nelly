@@ -332,8 +332,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa92ac51eab1c4a49af42c9ce43d8a4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainTextArea: {fileID: 0}
-  Image: {fileID: 0}
+  InputManager: {fileID: 0}
+  MainTextArea: {fileID: 1684873223535562357}
+  Image: {fileID: 1684873224972458040}
   Buttons:
   - {fileID: 2224276342222008029}
   - {fileID: 2224276341881835992}
