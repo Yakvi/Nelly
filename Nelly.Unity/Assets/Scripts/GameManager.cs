@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     //public Slide firstSlide;
     private bool isPaused = false;
     public GameObject mainMenu;
+    public GameObject dialogArea;
 
     // Start is called before the first frame update
     void Start()
@@ -23,5 +24,6 @@ public class GameManager : MonoBehaviour
     public void NewGame()
     {
         mainMenu.SetActive(false);
+        //dialogArea.SetActive(true);
     }
 }
