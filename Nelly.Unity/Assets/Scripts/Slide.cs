@@ -1,18 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class Slide : MonoBehaviour
+[System.Serializable]
+[CreateAssetMenu(fileName = "Slide", menuName = "Dialog/Slide", order = 0)]
+public class Slide : ScriptableObject 
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    // TODO: Extract this even further? To produce a unique item which would be a color / text / image / combination of these
+    public Sprite Image;
+    public Color ImageTint = Color.white;
+    public string ImageText = "";
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string DialogText = "";
+    public Choice[] Choices;
 }

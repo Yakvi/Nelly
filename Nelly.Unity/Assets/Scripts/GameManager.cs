@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     //public Slide firstSlide;
-    private bool isPaused = false;
+    // private bool isPaused = false;
     public GameObject mainMenu;
     public GameObject dialogArea;
 

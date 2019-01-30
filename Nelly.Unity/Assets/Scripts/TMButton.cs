@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
+//using UnityEngine.UI;
 using System;
-using UnityEngine.EventSystems;
+//using UnityEngine.EventSystems;
 
 public class TMButton : MonoBehaviour
 {
@@ -35,5 +35,11 @@ public class TMButton : MonoBehaviour
         Text.SetActive(!isEmpty);
 
         textMesh.text = text;
+    }
+
+    internal bool IsHot(int action)
+    {
+        var result = inputManager.Actions[action] || IsClicked;
+        return result;
     }
 }
