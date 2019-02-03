@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cad1b7d952e32d4b9f984cb8eda4cd8, type: 3}
   m_Name: Test C2
   m_EditorClassIdentifier: 
-  Text: Test button 2
+  Text: Test button 3
+  Slide: {fileID: 11400000, guid: f20005388a113e24e86fa161fd784166, type: 2}
+  CostInTime: 0
+  CostInMoney: 0

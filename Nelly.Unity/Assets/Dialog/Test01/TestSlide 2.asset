@@ -17,4 +17,7 @@ MonoBehaviour:
   ImageText: 123
   DialogText: 123
   Choices:
-  - {fileID: 11400000, guid: 1ff7ee74b462a2341a299182584f0ed9, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: c3303e6795828a542a987f80b433ca56, type: 2}

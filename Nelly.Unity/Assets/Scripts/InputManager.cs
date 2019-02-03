@@ -10,6 +10,8 @@ public class InputManager : StandaloneInputModule
     public bool AnyKey;
     public bool[] Actions;
 
+    private GameObject hotObject;
+
     public Vector2 GetPlayerInput()
     {
         return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -17,14 +19,20 @@ public class InputManager : StandaloneInputModule
 
     public GameObject GetHotObject()
     {
+        GameObject result = null;
         var pointerData = GetPointerData();
-        var result = pointerData != null ? pointerData.pointerPress : null;
+
+        if (pointerData != null)
+        {
+            result = pointerData.pointerPress;
+        }
+
         return result;
     }
 
     private void Update()
     {
-        AnyKey = Input.anyKey;
+        AnyKey = Input.anyKeyDown;
 
         for (int i = 0; i < Actions.Length; i++)
         {
@@ -65,7 +73,7 @@ public class InputManager : StandaloneInputModule
 
     public PointerEventData GetPointerData()
     {
-        var result = m_PointerData.Count > 0 ?  m_PointerData[kMouseLeftId] : null;
+        var result = m_PointerData.Count > 0 ? m_PointerData[kMouseLeftId] : null;
         return result;
     }
 }

@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Image: {fileID: 0}
   ImageTint: {r: 0.4245283, g: 0.26232645, b: 0.26232645, a: 1}
-  ImageText: "\u042F \u0441\u043C\u043E\u0442\u0440\u044E \u043D\u0430 \u0447\u0442\u043E-\u0442\u043E
-    \u0431\u043E\u043B\u044C\u0448\u043E\u0435 \u0438 \u0440\u043E\u0437\u043E\u0432\u043E\u0435."
+  ImageText: 
   DialogText: 'test test test test test test test test test test test test test test
     test '
   Choices:

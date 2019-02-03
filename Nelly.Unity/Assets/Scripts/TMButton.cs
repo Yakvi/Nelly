@@ -8,11 +8,13 @@ using System;
 
 public class TMButton : MonoBehaviour
 {
-    public bool IsClicked;
+    public bool IsActive;
+    public bool WasClicked;
 
     public GameObject Button;
     public GameObject Text;
 
+    private bool isBeingClicked;
     private InputManager inputManager;
     private TextMeshProUGUI textMesh;
 
@@ -25,21 +27,22 @@ public class TMButton : MonoBehaviour
     void Update()
     {
         var hotObject = inputManager.GetHotObject();
-        IsClicked = hotObject && (hotObject == Button || hotObject == Text);
+        isBeingClicked = hotObject && (hotObject == Button || hotObject == Text);
     }
 
     public void SetText(string text = "")
     {
-        var isEmpty = String.IsNullOrWhiteSpace(text);
-        Button.SetActive(!isEmpty);
-        Text.SetActive(!isEmpty);
+        IsActive = !String.IsNullOrWhiteSpace(text);
+        Button.SetActive(IsActive);
+        Text.SetActive(IsActive);
 
         textMesh.text = text;
     }
 
-    internal bool IsHot(int action)
+    public bool IsHot(int action)
     {
-        var result = inputManager.Actions[action] || IsClicked;
+        var result = inputManager.AnyKey &&
+            (inputManager.Actions[action] || isBeingClicked);
         return result;
     }
 }

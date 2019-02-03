@@ -7,4 +7,8 @@ using UnityEngine;
 public class Choice : ScriptableObject 
 {
     public string Text = "";
+    public Slide Slide;
+    public float CostInTime = 0f;
+    public float CostInMoney = 0f;
+
 }

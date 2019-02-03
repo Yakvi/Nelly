@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cad1b7d952e32d4b9f984cb8eda4cd8, type: 3}
-  m_Name: Test C3
+  m_Script: {fileID: 11500000, guid: d06971b49ad559e4bb052285fa78a5ed, type: 3}
+  m_Name: TestUnit1
   m_EditorClassIdentifier: 
-  Text: Test button 3
+  Slides:
+  - {fileID: 11400000, guid: 423350e3c137f8045b7c22bae0f8898f, type: 2}
+  NextUnit: {fileID: 0}

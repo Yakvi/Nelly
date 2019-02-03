@@ -667,58 +667,83 @@ PrefabInstance:
         type: 3}
       propertyPath: CurrentSlide
       value: 
-      objectReference: {fileID: 11400000, guid: e836f12f35ed8264981a909e05a379eb,
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684873224933666263, guid: a2f64018f9e84af4e8b9a3159b6523bc,
+        type: 3}
+      propertyPath: SingleChoice
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684873223535562359, guid: a2f64018f9e84af4e8b9a3159b6523bc,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684873223535562359, guid: a2f64018f9e84af4e8b9a3159b6523bc,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836957405398719457, guid: a2f64018f9e84af4e8b9a3159b6523bc,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836957405398719457, guid: a2f64018f9e84af4e8b9a3159b6523bc,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836957405603095780, guid: a2f64018f9e84af4e8b9a3159b6523bc,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836957405603095780, guid: a2f64018f9e84af4e8b9a3159b6523bc,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836957404104355384, guid: a2f64018f9e84af4e8b9a3159b6523bc,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836957404104355384, guid: a2f64018f9e84af4e8b9a3159b6523bc,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836957404891182816, guid: a2f64018f9e84af4e8b9a3159b6523bc,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836957404891182816, guid: a2f64018f9e84af4e8b9a3159b6523bc,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 419423655469705570, guid: a2f64018f9e84af4e8b9a3159b6523bc,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 419423655469705570, guid: a2f64018f9e84af4e8b9a3159b6523bc,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684873224933666261, guid: a2f64018f9e84af4e8b9a3159b6523bc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194529985786266733, guid: a2f64018f9e84af4e8b9a3159b6523bc,
+        type: 3}
+      propertyPath: CurrentUnit
+      value: 
+      objectReference: {fileID: 11400000, guid: 49f1c781237f43d4d87f098e3f635025,
         type: 2}
-    - target: {fileID: 1684873223535562359, guid: a2f64018f9e84af4e8b9a3159b6523bc,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1684873223535562359, guid: a2f64018f9e84af4e8b9a3159b6523bc,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3836957405398719457, guid: a2f64018f9e84af4e8b9a3159b6523bc,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3836957405398719457, guid: a2f64018f9e84af4e8b9a3159b6523bc,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3836957405603095780, guid: a2f64018f9e84af4e8b9a3159b6523bc,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3836957405603095780, guid: a2f64018f9e84af4e8b9a3159b6523bc,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3836957404104355384, guid: a2f64018f9e84af4e8b9a3159b6523bc,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3836957404104355384, guid: a2f64018f9e84af4e8b9a3159b6523bc,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3836957404891182816, guid: a2f64018f9e84af4e8b9a3159b6523bc,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3836957404891182816, guid: a2f64018f9e84af4e8b9a3159b6523bc,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2f64018f9e84af4e8b9a3159b6523bc, type: 3}
 --- !u!224 &3378185718272489336 stripped
@@ -913,6 +938,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.spaceCount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277373782047147822, guid: 80bf44b3e9bb5b245ada86fe374abffd,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 664581364}
+    - target: {fileID: 5277373782047147822, guid: 80bf44b3e9bb5b245ada86fe374abffd,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NewGame
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80bf44b3e9bb5b245ada86fe374abffd, type: 3}
