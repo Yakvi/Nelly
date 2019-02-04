@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class SlideManager : MonoBehaviour
 {
     public int buttonCount;
-    public Slide CurrentSlide;
 
     public bool SingleChoice;
     public string DefaultButtonText = "";
@@ -34,10 +33,7 @@ public class SlideManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        ChangeSlide(CurrentSlide.Choices);
-    }
+
 
     public int ProcessInteractions()
     {
@@ -59,15 +55,19 @@ public class SlideManager : MonoBehaviour
         return result;
     }
 
-    public void ChangeSlide(Choice[] choices = null)
+    public void ChangeSlide(Slide slideData)
     {
         ClearSlide();
 
         // Rendering
-        botOutput.text = CurrentSlide.DialogText;
-        SetPicture(CurrentSlide);
+        botOutput.text = slideData.DialogText;
+        SetPicture(slideData);
+        SetButtons(slideData.Choices, slideData.IsLinear());
+    }
 
-        if (choices == null || choices.Length < 2)
+    private void SetButtons(Choice[] buttonData, bool slideIsLinear)
+    {
+        if (slideIsLinear)
         {
             AddSingleChoiceButton();
         }
@@ -75,10 +75,10 @@ public class SlideManager : MonoBehaviour
         {
             for (int i = 0; i < buttons.Length; i++)
             {
-                // TODO: choice select (in slide)
-                if (i < choices.Length && choices[i])
+                // TODO: choice determination logic
+                if (i < buttonData.Length && buttonData[i])
                 {
-                    SetButtonText(choices[i].Text, i);
+                    SetButtonText(buttonData[i].Text, i);
                 }
             }
         }
@@ -115,10 +115,10 @@ public class SlideManager : MonoBehaviour
         //       Preserve previous for now, if not, implement in ClearSlide
         imageOutput.sprite = slide.Image ? slide.Image : null;
         if (slide.ImageTint != Color.white) imageOutput.color = slide.ImageTint;
-        mainOutput.text = CurrentSlide.ImageText;
+        mainOutput.text = slide.ImageText;
     }
 
-    private void SetButtonText(string text, int pos = 0)
+    private void SetButtonText(string text, int pos = 3)
     {
         buttons[pos].SetText(text);
     }

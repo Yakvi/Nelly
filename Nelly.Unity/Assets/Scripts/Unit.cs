@@ -29,10 +29,8 @@ public class Unit : ScriptableObject
 
     internal Unit GetNextUnit()
     {
-        Reset();
-        
         if (NextUnit) NextUnit.Reset();
-
+        
         return NextUnit;
     }
 }

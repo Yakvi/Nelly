@@ -8,53 +8,60 @@ public class UnitManager : MonoBehaviour
     public Unit CurrentUnit;
 
     private SlideManager slideManager;
-    private Slide nextSlide;
+    private Slide currentSlide;
 
     void Awake()
     {
         CurrentUnit.Reset();
 
         slideManager = gameObject.GetComponent<SlideManager>();
-        slideManager.CurrentSlide = CurrentUnit.GetNextSlide();
-        GetNextSlideFromUnit();
     }
 
-    private void GetNextSlideFromUnit()
+    void Start()
     {
-        nextSlide = CurrentUnit.GetNextSlide();
-
-        if (!nextSlide)
-        {
-            CurrentUnit = CurrentUnit.GetNextUnit();
-            if (CurrentUnit)
-            {
-                nextSlide = CurrentUnit.GetNextSlide();
-            }
-            else
-            {
-                print("no other units");
-                Application.Quit();
-            }
-        }
+        currentSlide = CurrentUnit.GetNextSlide(); // Assume starting unit has always at least one slide!
+        slideManager.ChangeSlide(currentSlide);
     }
-
+    
     void Update()
     {
         var index = slideManager.ProcessInteractions();
         if (index >= 0)
         {
-            if (slideManager.CurrentSlide.Choices.Length < 2)
+            // Get next slide/unit
+            if (currentSlide.IsLinear())
             {
-                slideManager.CurrentSlide = nextSlide;
-                slideManager.ChangeSlide();
-                GetNextSlideFromUnit();
+                currentSlide = GetNextSlideFromUnit();
             }
             else
             {
-                slideManager.CurrentSlide = null; // choices[index]
-                slideManager.ChangeSlide(); // ??? 
+                currentSlide = null; // choices[index]
+                //slideManager.ChangeSlide(); // ??? 
                 // TODO GetSlideFromChoice? 
             }
+
+            // Render slide and buttons
+            slideManager.ChangeSlide(currentSlide);
         }
+    }
+
+    private Slide GetNextSlideFromUnit()
+    {
+        var result = CurrentUnit.GetNextSlide();
+
+        if (!result)
+        {
+            CurrentUnit = CurrentUnit.GetNextUnit();
+            if (CurrentUnit)
+            {
+                result = CurrentUnit.GetNextSlide();
+            }
+            else
+            {
+                print("no other units");
+            }
+        }
+
+        return result;
     }
 }
