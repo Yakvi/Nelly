@@ -140,12 +140,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 54.7
+  m_fontSize: 33.35
   m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 16
-  m_fontSizeMax: 70
+  m_fontSizeMax: 200
   m_fontStyle: 0
   m_textAlignment: 258
   m_isAlignmentEnumConverted: 1
@@ -186,7 +186,7 @@ MonoBehaviour:
     spaceCount: 18
     wordCount: 19
     linkCount: 0
-    lineCount: 4
+    lineCount: 6
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 0
@@ -334,8 +334,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a70222a41fccbf429b91b8a360453a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonCount: 4
-  CurrentSlide: {fileID: 0}
   SingleChoice: 0
   DefaultButtonText: "\u0414\u0430\u043B\u0435\u0435..."
 --- !u!114 &7194529985786266733
@@ -350,7 +348,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a3d8ba3158ca349b0abc9ebe501440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentUnit: {fileID: 0}
+  ActiveSlide: {fileID: 0}
+  CurrentBranch: {fileID: 0}
 --- !u!1 &1684873224972458038
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,12 +524,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 22.45
+  m_fontSize: 16.7
   m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 16
-  m_fontSizeMax: 30
+  m_fontSizeMax: 100
   m_fontStyle: 0
   m_textAlignment: 264
   m_isAlignmentEnumConverted: 1
@@ -722,7 +721,7 @@ PrefabInstance:
     - target: {fileID: 2476490697256954003, guid: 415ef5f7addd3b347906d3330705c24d,
         type: 3}
       propertyPath: m_fontSize
-      value: 18.7
+      value: 12.7
       objectReference: {fileID: 0}
     - target: {fileID: 2476490697256954003, guid: 415ef5f7addd3b347906d3330705c24d,
         type: 3}
@@ -887,7 +886,7 @@ PrefabInstance:
     - target: {fileID: 2476490697256954003, guid: 415ef5f7addd3b347906d3330705c24d,
         type: 3}
       propertyPath: m_fontSize
-      value: 18.7
+      value: 12.7
       objectReference: {fileID: 0}
     - target: {fileID: 2476490697256954003, guid: 415ef5f7addd3b347906d3330705c24d,
         type: 3}
@@ -1042,7 +1041,7 @@ PrefabInstance:
     - target: {fileID: 2476490697256954003, guid: 415ef5f7addd3b347906d3330705c24d,
         type: 3}
       propertyPath: m_fontSize
-      value: 18.7
+      value: 12.7
       objectReference: {fileID: 0}
     - target: {fileID: 2476490697256954003, guid: 415ef5f7addd3b347906d3330705c24d,
         type: 3}
@@ -1207,7 +1206,7 @@ PrefabInstance:
     - target: {fileID: 2476490697256954003, guid: 415ef5f7addd3b347906d3330705c24d,
         type: 3}
       propertyPath: m_fontSize
-      value: 18.7
+      value: 12.7
       objectReference: {fileID: 0}
     - target: {fileID: 2476490697256954003, guid: 415ef5f7addd3b347906d3330705c24d,
         type: 3}

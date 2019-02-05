@@ -16,6 +16,7 @@ public class SlideManager : MonoBehaviour
     private TextMeshProUGUI botOutput;
     private TMButton[] buttons;
     private InputManager inputManager;
+    private AudioListener audioListener;
 
     void Awake()
     {
@@ -23,6 +24,7 @@ public class SlideManager : MonoBehaviour
         mainOutput = GameObject.Find("MainTextOutput").GetComponent<TextMeshProUGUI>();
         botOutput = GameObject.Find("BotTextOutput").GetComponent<TextMeshProUGUI>();
         inputManager = GameObject.Find("EventSystem").GetComponent<InputManager>();
+        audioListener = GameObject.Find("GameManager").GetComponent<AudioListener>();
 
         buttons = new TMButton[(int) Selection.Count];
         for (int i = 0; i < (int) Selection.Count; i++)
@@ -59,6 +61,7 @@ public class SlideManager : MonoBehaviour
         if (slideData != null)
         {
             botOutput.text = slideData.DialogText;
+            // if(slideData.Sound != null) // TODO: Play something
             SetPicture(slideData);
             SetButtons(slideData.Choices, slideData.IsLinear());
         }
