@@ -8,8 +8,6 @@ using UnityEngine.UI;
 
 public class SlideManager : MonoBehaviour
 {
-    public int buttonCount;
-
     public bool SingleChoice;
     public string DefaultButtonText = "";
 
@@ -26,18 +24,16 @@ public class SlideManager : MonoBehaviour
         botOutput = GameObject.Find("BotTextOutput").GetComponent<TextMeshProUGUI>();
         inputManager = GameObject.Find("EventSystem").GetComponent<InputManager>();
 
-        buttons = new TMButton[buttonCount];
-        for (int i = 0; i < buttonCount; i++)
+        buttons = new TMButton[(int) Selection.Count];
+        for (int i = 0; i < (int) Selection.Count; i++)
         {
             buttons[i] = GameObject.Find($"Button{i}").GetComponent<TMButton>();
         }
     }
 
-
-
-    public int ProcessInteractions()
+    public Selection ProcessInteractions()
     {
-        var result = -1;
+        var result = Selection.None;
 
         for (int i = 0; i < buttons.Length; i++)
         {
@@ -46,7 +42,7 @@ public class SlideManager : MonoBehaviour
             {
                 if (button.IsHot(i) || IsSingleChoiceSelected(button))
                 {
-                    result = i;
+                    result = (Selection) i;
                     break;
                 }
             }
@@ -60,9 +56,17 @@ public class SlideManager : MonoBehaviour
         ClearSlide();
 
         // Rendering
-        botOutput.text = slideData.DialogText;
-        SetPicture(slideData);
-        SetButtons(slideData.Choices, slideData.IsLinear());
+        if (slideData != null)
+        {
+            botOutput.text = slideData.DialogText;
+            SetPicture(slideData);
+            SetButtons(slideData.Choices, slideData.IsLinear());
+        }
+        else
+        {
+            botOutput.text = "Slide data is not found. GG.";
+            Application.Quit();
+        }
     }
 
     private void SetButtons(Choice[] buttonData, bool slideIsLinear)

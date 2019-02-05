@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Test C2
   m_EditorClassIdentifier: 
   Text: Test button 3
-  Slide: {fileID: 11400000, guid: f20005388a113e24e86fa161fd784166, type: 2}
+  Branch: {fileID: 11400000, guid: e836f12f35ed8264981a909e05a379eb, type: 2}
   CostInTime: 0
   CostInMoney: 0

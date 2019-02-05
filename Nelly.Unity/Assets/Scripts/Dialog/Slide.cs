@@ -6,7 +6,7 @@ using UnityEngine;
 
 [System.Serializable]
 [CreateAssetMenu(fileName = "Slide", menuName = "Dialog/Slide", order = 0)]
-public class Slide : ScriptableObject
+public class Slide : Narrative
 {
     // TODO: Extract this even further? To produce a unique item which would be a color / text / image / combination of these
     public Sprite Image;
@@ -15,6 +15,13 @@ public class Slide : ScriptableObject
 
     public string DialogText = "";
     public Choice[] Choices;
+
+    public override Slide GetNextSlide() => this;
+    public override Unit GetNextUnit() => null;
+    public override void Reset()
+    {
+        // No action needed for now
+    }
 
     public bool IsLinear()
     {
@@ -25,7 +32,7 @@ public class Slide : ScriptableObject
             var found = 0;
             foreach (var choice in Choices)
             {
-                if (!String.IsNullOrWhiteSpace(choice.Text))
+                if (choice != null && !String.IsNullOrWhiteSpace(choice.Text))
                 {
                     ++found;
                 }
@@ -35,9 +42,10 @@ public class Slide : ScriptableObject
             {
                 result = true;
             }
-            
+
         }
 
         return result;
     }
+
 }
