@@ -29,16 +29,19 @@ public class UnitManager : MonoBehaviour
         {
             if (ActiveSlide.Choices.Length > (int) index)
             {
+                // Get slide based on choice
                 var nextBranch = ActiveSlide.Choices[(int) index]?.Branch;
                 if (nextBranch)
                 {
-                    ActiveSlide = nextBranch.GetNextSlide();
                     CurrentBranch = nextBranch;
+                    CurrentBranch.Reset();
+                    ActiveSlide = CurrentBranch.GetNextSlide();
                 }
             }
             else
             {
-                ActiveSlide = CurrentBranch.GetNextSlide();
+                // Get next slide in unit
+                ActiveSlide = GetNextSlideFromUnit();
             }
 
             slideManager.ChangeSlide(ActiveSlide);

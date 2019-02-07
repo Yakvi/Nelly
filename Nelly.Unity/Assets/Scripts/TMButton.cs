@@ -18,7 +18,7 @@ public class TMButton : MonoBehaviour
     private InputManager inputManager;
     private TextMeshProUGUI textMesh;
 
-    void Start()
+    void Awake()
     {
         textMesh = Text.GetComponent<TextMeshProUGUI>();
         inputManager = GameObject.Find("EventSystem").GetComponent<InputManager>();

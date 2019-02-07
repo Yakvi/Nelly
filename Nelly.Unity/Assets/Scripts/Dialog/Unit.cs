@@ -8,7 +8,7 @@ using UnityEngine;
 public class Unit : Narrative
 {
     public Slide[] Slides;
-    public Unit NextUnit;
+    public Narrative NextUnit;
     private int currentSlide;
 
     public override void Reset()
@@ -30,7 +30,7 @@ public class Unit : Narrative
         return result;
     }
 
-    public override Unit GetNextUnit()
+    public override Narrative GetNextUnit()
     {
             if (NextUnit) NextUnit.Reset();
 

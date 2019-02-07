@@ -11,14 +11,18 @@ public class Slide : Narrative
     // TODO: Extract this even further? To produce a unique item which would be a color / text / image / combination of these
     public Sprite Image;
     public Color ImageTint = Color.white;
+    
     public AudioClip Sound;
+    public AudioClip Ambient;
+    
+    [Multiline]
     public string ImageText = "";
-
+    [Multiline]
     public string DialogText = "";
     public Choice[] Choices;
 
     public override Slide GetNextSlide() => this;
-    public override Unit GetNextUnit() => null;
+    public override Narrative GetNextUnit() => null;
     public override void Reset()
     {
         // No action needed for now

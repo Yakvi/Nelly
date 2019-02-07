@@ -10,13 +10,19 @@ public class SlideManager : MonoBehaviour
 {
     public bool SingleChoice;
     public string DefaultButtonText = "";
+    [Range(0.0f, 1.0f)]
+    public float SoundVolume = 1.0f;
+    [Range(0.0f, 1.0f)]
+    public float AmbientVolume = 1.0f;
 
     private Image imageOutput;
     private TextMeshProUGUI mainOutput;
     private TextMeshProUGUI botOutput;
     private TMButton[] buttons;
     private InputManager inputManager;
-    private AudioListener audioListener;
+    
+    private AudioSource fxSound;
+    private AudioSource ambientSound;
 
     void Awake()
     {
@@ -24,7 +30,9 @@ public class SlideManager : MonoBehaviour
         mainOutput = GameObject.Find("MainTextOutput").GetComponent<TextMeshProUGUI>();
         botOutput = GameObject.Find("BotTextOutput").GetComponent<TextMeshProUGUI>();
         inputManager = GameObject.Find("EventSystem").GetComponent<InputManager>();
-        audioListener = GameObject.Find("GameManager").GetComponent<AudioListener>();
+    
+        fxSound = GameObject.Find("FXSound").GetComponent<AudioSource>();
+        ambientSound = GameObject.Find("AmbientSound").GetComponent<AudioSource>();
 
         buttons = new TMButton[(int) Selection.Count];
         for (int i = 0; i < (int) Selection.Count; i++)
@@ -61,14 +69,30 @@ public class SlideManager : MonoBehaviour
         if (slideData != null)
         {
             botOutput.text = slideData.DialogText;
-            // if(slideData.Sound != null) // TODO: Play something
             SetPicture(slideData);
             SetButtons(slideData.Choices, slideData.IsLinear());
+            PlaySounds(slideData);
         }
         else
         {
             botOutput.text = "Slide data is not found. GG.";
             Application.Quit();
+        }
+    }
+
+    private void PlaySounds(Slide slideData)
+    {
+        if (slideData.Sound != null)
+        {
+            fxSound.clip = slideData.Sound;
+            fxSound.volume = SoundVolume;
+            fxSound.Play();
+        }
+        if (slideData.Ambient != null)
+        {
+            ambientSound.clip = slideData.Ambient;
+            ambientSound.volume = AmbientVolume;
+            ambientSound.Play();
         }
     }
 
