@@ -24,27 +24,30 @@ public class UnitManager : MonoBehaviour
 
     void Update()
     {
-        var index = slideManager.ProcessInteractions();
-        if (index != Selection.None) // we have a hit
+        if (slideManager.isActiveAndEnabled)
         {
-            if (ActiveSlide.Choices.Length > (int) index)
+            var index = slideManager.LastInteraction;
+            if (index != Selection.None) // we have a hit
             {
-                // Get slide based on choice
-                var nextBranch = ActiveSlide.Choices[(int) index]?.Branch;
-                if (nextBranch)
+                if (ActiveSlide.Choices.Length > (int) index)
                 {
-                    CurrentBranch = nextBranch;
-                    CurrentBranch.Reset();
-                    ActiveSlide = CurrentBranch.GetNextSlide();
+                    // Get slide based on choice
+                    var nextBranch = ActiveSlide.Choices[(int) index]?.Branch;
+                    if (nextBranch)
+                    {
+                        CurrentBranch = nextBranch;
+                        CurrentBranch.Reset();
+                        ActiveSlide = CurrentBranch.GetNextSlide();
+                    }
                 }
-            }
-            else
-            {
-                // Get next slide in unit
-                ActiveSlide = GetNextSlideFromUnit();
-            }
+                else
+                {
+                    // Get next slide in unit
+                    ActiveSlide = GetNextSlideFromUnit();
+                }
 
-            slideManager.ChangeSlide(ActiveSlide);
+                slideManager.ChangeSlide(ActiveSlide);
+            }
         }
     }
 

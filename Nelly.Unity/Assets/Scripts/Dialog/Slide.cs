@@ -5,11 +5,12 @@ using UnityEditor;
 using UnityEngine;
 
 [System.Serializable]
-[CreateAssetMenu(fileName = "Slide", menuName = "Dialog/Slide", order = 0)]
+[CreateAssetMenu(fileName = "Slide", menuName = "Game/Dialog/Slide", order = 0)]
 public class Slide : Narrative
 {
     // TODO: Extract this even further? To produce a unique item which would be a color / text / image / combination of these
     public Sprite Image;
+    public Location NewLocation;
     public Color ImageTint = Color.white;
 
     #region NOTE: Sounds

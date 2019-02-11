@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-[CreateAssetMenu(fileName = "Unit", menuName = "Dialog/Unit", order = 0)]
+[CreateAssetMenu(fileName = "Unit", menuName = "Game/Dialog/Unit", order = 0)]
 public class Unit : Narrative
 {
     public Slide[] Slides;

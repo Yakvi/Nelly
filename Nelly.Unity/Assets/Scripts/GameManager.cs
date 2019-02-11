@@ -8,17 +8,24 @@ public class GameManager : MonoBehaviour
     // private bool isPaused = false;
     public GameObject mainMenu;
     public GameObject dialogArea;
+    public GameObject MapOverlay;
 
-    // Start is called before the first frame update
-    void Start()
+    private TMButton dialogButton;
+    private SlideManager slideManager;
+
+    void Awake()
     {
-        
+        dialogButton = MapOverlay.transform.Find("Dialog Button").GetComponent<TMButton>();
+        slideManager = dialogArea.GetComponent<SlideManager>();
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (dialogButton.WasClicked())
+        {
+            slideManager.ToggleRequested = true;
+        }
     }
 
     public void NewGame()

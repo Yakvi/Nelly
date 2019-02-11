@@ -8,15 +8,19 @@ using UnityEngine.UI;
 
 public class SlideManager : MonoBehaviour
 {
-    public bool SingleChoice;
     public string DefaultButtonText = "";
     [Range(0.0f, 1.0f)]
     public float GlobalSoundVolume = 1.0f;
     [Range(0.0f, 1.0f)]
     public float GlobalAmbientVolume = 1.0f;
 
+    public Transform Player;
+    
+    public bool ToggleRequested;
+    public Selection LastInteraction;
     public TMButton CloseButton;
 
+    private GameObject window;
     private Image imageOutput;
     private TextMeshProUGUI mainOutput;
     private TextMeshProUGUI botOutput;
@@ -25,10 +29,12 @@ public class SlideManager : MonoBehaviour
 
     private AudioSource fxSound;
     private AudioSource ambientSound;
-    private bool captureInteractions = false;
+    private bool singleChoice;
+    private bool windowInFocus;
 
     void Awake()
     {
+        window = GameObject.Find("Window");
         imageOutput = GameObject.Find("MainGraphicOutput").GetComponent<Image>();
         mainOutput = GameObject.Find("MainTextOutput").GetComponent<TextMeshProUGUI>();
         botOutput = GameObject.Find("BotTextOutput").GetComponent<TextMeshProUGUI>();
@@ -42,47 +48,54 @@ public class SlideManager : MonoBehaviour
         {
             buttons[i] = GameObject.Find($"Button{i}").GetComponent<TMButton>();
         }
+        windowInFocus = window.activeSelf;
     }
 
     void Update()
     {
-        captureInteractions = true; 
+        LastInteraction = Selection.None;
 
-        if (CloseButton && CloseButton.WasClicked)
+        if (CloseButton.WasClicked() || ToggleRequested)
         {
-            captureInteractions = false;
-            Close();
+            ToggleRequested = false;
+            ToggleActive();
+        }
+        else
+        {
+            ProcessInteractions();
         }
     }
 
-    private void Close()
+    public void ToggleActive()
     {
-        fxSound.Stop();
-        ambientSound.Stop();
-        gameObject.SetActive(false);
+        if (window.activeSelf)
+        {
+            fxSound.Stop();
+            ambientSound.Stop();
+        }
+        else
+        {
+            ambientSound.Play();
+        }
+
+        window.SetActive(!window.activeSelf);
+        windowInFocus = window.activeSelf;
     }
 
-    public Selection ProcessInteractions()
+    public void ProcessInteractions()
     {
-        var result = Selection.None;
-
-        if (captureInteractions)
+        for (int i = 0; i < buttons.Length; i++)
         {
-            for (int i = 0; i < buttons.Length; i++)
+            var button = GetButton(i);
+            if (button)
             {
-                var button = GetButton(i);
-                if (button)
+                if (button.IsHot(i) || IsSingleChoiceSelected(button))
                 {
-                    if (button.IsHot(i) || IsSingleChoiceSelected(button))
-                    {
-                        result = (Selection) i;
-                        break;
-                    }
+                    LastInteraction = (Selection) i;
+                    break;
                 }
             }
         }
-        
-        return result;
     }
 
     public void ChangeSlide(Slide slideData)
@@ -96,11 +109,20 @@ public class SlideManager : MonoBehaviour
             SetPicture(slideData);
             SetButtons(slideData.Choices, slideData.IsLinear());
             PlaySounds(slideData);
+            ChangeLocation(slideData.NewLocation);
         }
         else
         {
             botOutput.text = "Slide data is not found. GG.";
             Application.Quit();
+        }
+    }
+
+    private void ChangeLocation(Location location)
+    {
+        if (location != null)
+        {
+            Player.position = location.Coordinates;
         }
     }
 
@@ -141,7 +163,7 @@ public class SlideManager : MonoBehaviour
 
     private void AddSingleChoiceButton()
     {
-        SingleChoice = true;
+        singleChoice = true;
         SetButtonText(DefaultButtonText);
     }
 
@@ -159,8 +181,10 @@ public class SlideManager : MonoBehaviour
 
     private bool IsSingleChoiceSelected(TMButton button)
     {
-        var result = SingleChoice &&
-            (inputManager.AnyKeyUp || button.WasClicked);
+        var result = singleChoice && button.WasClicked();
+
+        if (windowInFocus) result |= inputManager.AnyKeyUp;
+
         return result;
     }
 
@@ -180,7 +204,7 @@ public class SlideManager : MonoBehaviour
 
     private void ClearSlide()
     {
-        SingleChoice = false;
+        singleChoice = false;
         foreach (var button in buttons)
         {
             button.SetText("");

@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: U0_S7
   m_EditorClassIdentifier: 
   Image: {fileID: 0}
+  NewLocation: {fileID: 11400000, guid: a95aa26f7f361434b83f173f948a612d, type: 2}
   ImageTint: {r: 0.735849, g: 0.65189356, b: 0.3019758, a: 1}
   Sound: {fileID: 0}
+  SoundVolume: 1
   Ambient: {fileID: 8300000, guid: c16aeab7555e29a4fac93de676532550, type: 3}
+  AmbientVolume: 1
   ImageText: "\u041E\u0442\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u0448\u043A\u0430\u0444,
     \u043E\u0434\u0435\u0432\u0430\u0435\u0442\u0441\u044F."
   DialogText: "\u042F \u043C\u043E\u0433\u0443 \u0441\u043A\u0430\u0437\u0430\u0442\u044C,

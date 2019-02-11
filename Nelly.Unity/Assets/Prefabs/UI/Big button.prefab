@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2476490697256954002}
   - component: {fileID: 2476490697256954003}
   m_Layer: 5
-  m_Name: Button Text
+  m_Name: Button text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,9 +211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20399f8b33c05ad4cb0106f53b4d3313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsClicked: 0
-  Button: {fileID: 6039987990337436862}
-  Text: {fileID: 2476490697256954001}
+  IsActive: 0
+  WasClicked: 0
 --- !u!1 &6039987990337436862
 GameObject:
   m_ObjectHideFlags: 0
