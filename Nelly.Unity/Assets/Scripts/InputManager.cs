@@ -8,18 +8,19 @@ using UnityEngine.EventSystems;
 public class InputManager : StandaloneInputModule
 {
     //public UnityAction OnPlayerAction;
-    public bool AnyKey;
+    public bool AnyKeyUp;
     public bool[] Actions;
 
     public GameObject LastObjectClicked;
     public GameObject HotObject;
+    private bool anyKey;
 
     private void Update()
     {
         LastObjectClicked = GetLastObjectClicked();
         HotObject = GetHotObject();
 
-        AnyKey = Input.anyKeyDown;
+        AnyKeyUp = GetAnyKeyUp();
 
         for (int i = 0; i < Actions.Length; i++)
         {
@@ -31,6 +32,17 @@ public class InputManager : StandaloneInputModule
         // {
         //     Application.Quit(0);
         // }
+    }
+
+    private bool GetAnyKeyUp()
+    {
+        var anyInProgress = Input.anyKey;
+
+        var result = !anyInProgress && anyKey;
+
+        anyKey = anyInProgress;
+
+        return result;
     }
 
     public Vector2 GetPlayerInput()
@@ -91,7 +103,7 @@ public class InputManager : StandaloneInputModule
         return key;
     }
 
-    public PointerEventData GetPointerData()
+    private PointerEventData GetPointerData()
     {
         var result = m_PointerData.Count > 0 ? m_PointerData[kMouseLeftId] : null;
         return result;

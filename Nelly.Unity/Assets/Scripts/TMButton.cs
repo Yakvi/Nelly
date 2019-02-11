@@ -39,7 +39,7 @@ public class TMButton : MonoBehaviour
 
     public bool IsHot(int action)
     {
-        var result = inputManager.AnyKey &&
+        var result = inputManager.AnyKeyUp &&
             (inputManager.Actions[action] || WasClicked);
         return result;
     }

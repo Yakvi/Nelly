@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06971b49ad559e4bb052285fa78a5ed, type: 3}
+  m_Name: Q0_U6
+  m_EditorClassIdentifier: 
+  Slides:
+  - {fileID: 11400000, guid: 019e5080e081f294d88762fe6c3216c9, type: 2}
+  - {fileID: 11400000, guid: c52521785afadd04f89f83a9eaf30bdd, type: 2}
+  - {fileID: 11400000, guid: 505bcfd5c9fc23c4595a6cff37db0a7b, type: 2}
+  - {fileID: 11400000, guid: b4553a7e802506241b024a5df2c160ba, type: 2}
+  NextUnit: {fileID: 0}

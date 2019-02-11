@@ -11,10 +11,17 @@ public class Slide : Narrative
     // TODO: Extract this even further? To produce a unique item which would be a color / text / image / combination of these
     public Sprite Image;
     public Color ImageTint = Color.white;
-    
+
+    #region NOTE: Sounds
     public AudioClip Sound;
+    [Range(0.0f, 1.0f)]
+    public float SoundVolume = 1.0f;
+
     public AudioClip Ambient;
-    
+    [Range(0.0f, 1.0f)]
+    public float AmbientVolume = 1.0f;
+    #endregion
+
     [Multiline]
     public string ImageText = "";
     [Multiline]

@@ -24,6 +24,6 @@ public class GameManager : MonoBehaviour
     public void NewGame()
     {
         mainMenu.SetActive(false);
-        //dialogArea.SetActive(true);
+        dialogArea.SetActive(true);
     }
 }

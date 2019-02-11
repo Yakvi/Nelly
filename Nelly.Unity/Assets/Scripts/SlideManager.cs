@@ -11,9 +11,9 @@ public class SlideManager : MonoBehaviour
     public bool SingleChoice;
     public string DefaultButtonText = "";
     [Range(0.0f, 1.0f)]
-    public float SoundVolume = 1.0f;
+    public float GlobalSoundVolume = 1.0f;
     [Range(0.0f, 1.0f)]
-    public float AmbientVolume = 1.0f;
+    public float GlobalAmbientVolume = 1.0f;
 
     public TMButton CloseButton;
 
@@ -25,6 +25,7 @@ public class SlideManager : MonoBehaviour
 
     private AudioSource fxSound;
     private AudioSource ambientSound;
+    private bool captureInteractions = false;
 
     void Awake()
     {
@@ -45,29 +46,42 @@ public class SlideManager : MonoBehaviour
 
     void Update()
     {
+        captureInteractions = true; 
+
         if (CloseButton && CloseButton.WasClicked)
         {
-            gameObject.SetActive(false);
+            captureInteractions = false;
+            Close();
         }
+    }
+
+    private void Close()
+    {
+        fxSound.Stop();
+        ambientSound.Stop();
+        gameObject.SetActive(false);
     }
 
     public Selection ProcessInteractions()
     {
         var result = Selection.None;
 
-        for (int i = 0; i < buttons.Length; i++)
+        if (captureInteractions)
         {
-            var button = GetButton(i);
-            if (button)
+            for (int i = 0; i < buttons.Length; i++)
             {
-                if (button.IsHot(i) || IsSingleChoiceSelected(button))
+                var button = GetButton(i);
+                if (button)
                 {
-                    result = (Selection) i;
-                    break;
+                    if (button.IsHot(i) || IsSingleChoiceSelected(button))
+                    {
+                        result = (Selection) i;
+                        break;
+                    }
                 }
             }
         }
-
+        
         return result;
     }
 
@@ -95,13 +109,13 @@ public class SlideManager : MonoBehaviour
         if (slideData.Sound != null)
         {
             fxSound.clip = slideData.Sound;
-            fxSound.volume = SoundVolume;
+            fxSound.volume = GlobalSoundVolume * slideData.SoundVolume;
             fxSound.Play();
         }
         if (slideData.Ambient != null)
         {
             ambientSound.clip = slideData.Ambient;
-            ambientSound.volume = AmbientVolume;
+            ambientSound.volume = GlobalAmbientVolume * slideData.AmbientVolume;
             ambientSound.Play();
         }
     }
@@ -146,7 +160,7 @@ public class SlideManager : MonoBehaviour
     private bool IsSingleChoiceSelected(TMButton button)
     {
         var result = SingleChoice &&
-            (inputManager.AnyKey || button.WasClicked);
+            (inputManager.AnyKeyUp || button.WasClicked);
         return result;
     }
 

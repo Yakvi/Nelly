@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b855600f8249c6b44b495bdc9e010a3f, type: 3}
+  m_Name: Q0_End
+  m_EditorClassIdentifier: 
+  Image: {fileID: 0}
+  ImageTint: {r: 0, g: 0, b: 0, a: 1}
+  Sound: {fileID: 0}
+  Ambient: {fileID: 0}
+  ImageText: "\u041A\u043E\u043D\u0435\u0446. "
+  DialogText: "\u0421\u043F\u0430\u0441\u0438\u0431\u043E \u0437\u0430 \u0442\u0435\u0441\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435!"
+  Choices:
+  - {fileID: 11400000, guid: c1ff2daee1f41bb40a6ca29ec11e8885, type: 2}
+  - {fileID: 11400000, guid: fd0cc6a3ea5579a4ca02e4f8c80a8a86, type: 2}
