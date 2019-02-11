@@ -14,7 +14,6 @@ public class TMButton : MonoBehaviour
     public GameObject Button;
     public GameObject Text;
 
-    private bool isBeingClicked;
     private InputManager inputManager;
     private TextMeshProUGUI textMesh;
 
@@ -26,8 +25,7 @@ public class TMButton : MonoBehaviour
 
     void Update()
     {
-        var hotObject = inputManager.GetHotObject();
-        isBeingClicked = hotObject && (hotObject == Button || hotObject == Text);
+        WasClicked = IsThisButton(inputManager.LastObjectClicked);
     }
 
     public void SetText(string text = "")
@@ -42,7 +40,13 @@ public class TMButton : MonoBehaviour
     public bool IsHot(int action)
     {
         var result = inputManager.AnyKey &&
-            (inputManager.Actions[action] || isBeingClicked);
+            (inputManager.Actions[action] || WasClicked);
+        return result;
+    }
+
+    private bool IsThisButton(GameObject obj)
+    {
+        var result = obj == Button || obj == Text;
         return result;
     }
 }

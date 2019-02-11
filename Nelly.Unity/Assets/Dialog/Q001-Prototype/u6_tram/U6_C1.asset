@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Text: "\u041F\u0440\u043E\u0435\u0445\u0430\u0442\u044C \u0435\u0449\u0435 \u043F\u0430\u0440\u0443
     \u043E\u0441\u0442\u0430\u043D\u043E\u0432\u043E\u043A"
-  Branch: {fileID: 11400000, guid: 246ce4a1d5779e245819a5a0f6f98584, type: 2}
+  Branch: {fileID: 11400000, guid: 3b2ca39d38c97af48bd19e09f9ba63be, type: 2}
   CostInTime: 0
   CostInMoney: 0

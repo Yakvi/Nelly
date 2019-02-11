@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,7 +11,27 @@ public class InputManager : StandaloneInputModule
     public bool AnyKey;
     public bool[] Actions;
 
-    private GameObject hotObject;
+    public GameObject LastObjectClicked;
+    public GameObject HotObject;
+
+    private void Update()
+    {
+        LastObjectClicked = GetLastObjectClicked();
+        HotObject = GetHotObject();
+
+        AnyKey = Input.anyKeyDown;
+
+        for (int i = 0; i < Actions.Length; i++)
+        {
+            var action = Input.GetAxis($"Action {i + 1}");
+            Actions[i] = (action == 1) || (Input.GetKey(GetKeyCode(i)));
+        }
+
+        // if (Input.GetButtonDown("SysExit"))
+        // {
+        //     Application.Quit(0);
+        // }
+    }
 
     public Vector2 GetPlayerInput()
     {
@@ -30,20 +51,19 @@ public class InputManager : StandaloneInputModule
         return result;
     }
 
-    private void Update()
+    private GameObject GetLastObjectClicked()
     {
-        AnyKey = Input.anyKeyDown;
+        GameObject result = null;
+        var pointerData = GetPointerData();
 
-        for (int i = 0; i < Actions.Length; i++)
+        if (pointerData != null &&
+            !pointerData.eligibleForClick &&
+            HotObject != null && pointerData.pointerEnter == HotObject)
         {
-            var action = Input.GetAxis($"Action {i + 1}");
-            Actions[i] = (action == 1) || (Input.GetKey(GetKeyCode(i)));
+            result = pointerData.pointerEnter;
         }
 
-        // if (Input.GetButtonDown("SysExit"))
-        // {
-        //     Application.Quit(0);
-        // }
+        return result;
     }
 
     private static KeyCode GetKeyCode(int i)

@@ -15,12 +15,14 @@ public class SlideManager : MonoBehaviour
     [Range(0.0f, 1.0f)]
     public float AmbientVolume = 1.0f;
 
+    public TMButton CloseButton;
+
     private Image imageOutput;
     private TextMeshProUGUI mainOutput;
     private TextMeshProUGUI botOutput;
     private TMButton[] buttons;
     private InputManager inputManager;
-    
+
     private AudioSource fxSound;
     private AudioSource ambientSound;
 
@@ -30,7 +32,7 @@ public class SlideManager : MonoBehaviour
         mainOutput = GameObject.Find("MainTextOutput").GetComponent<TextMeshProUGUI>();
         botOutput = GameObject.Find("BotTextOutput").GetComponent<TextMeshProUGUI>();
         inputManager = GameObject.Find("EventSystem").GetComponent<InputManager>();
-    
+
         fxSound = GameObject.Find("FXSound").GetComponent<AudioSource>();
         ambientSound = GameObject.Find("AmbientSound").GetComponent<AudioSource>();
 
@@ -38,6 +40,14 @@ public class SlideManager : MonoBehaviour
         for (int i = 0; i < (int) Selection.Count; i++)
         {
             buttons[i] = GameObject.Find($"Button{i}").GetComponent<TMButton>();
+        }
+    }
+
+    void Update()
+    {
+        if (CloseButton && CloseButton.WasClicked)
+        {
+            gameObject.SetActive(false);
         }
     }
 
