@@ -15,12 +15,11 @@ public class SlideManager : MonoBehaviour
     public float GlobalAmbientVolume = 1.0f;
 
     public Transform Player;
-    
+
     public bool ToggleRequested;
     public Selection LastInteraction;
-    public TMButton CloseButton;
 
-    private GameObject window;
+    private Window window;
     private Image imageOutput;
     private TextMeshProUGUI mainOutput;
     private TextMeshProUGUI botOutput;
@@ -30,15 +29,15 @@ public class SlideManager : MonoBehaviour
     private AudioSource fxSound;
     private AudioSource ambientSound;
     private bool singleChoice;
-    private bool windowInFocus;
+    private bool soundsOn;
 
     void Awake()
     {
-        window = GameObject.Find("Window");
+        window = gameObject.GetComponentInChildren<Window>();
         imageOutput = GameObject.Find("MainGraphicOutput").GetComponent<Image>();
         mainOutput = GameObject.Find("MainTextOutput").GetComponent<TextMeshProUGUI>();
         botOutput = GameObject.Find("BotTextOutput").GetComponent<TextMeshProUGUI>();
-        inputManager = GameObject.Find("EventSystem").GetComponent<InputManager>();
+        inputManager = FindObjectOfType<InputManager>();
 
         fxSound = GameObject.Find("FXSound").GetComponent<AudioSource>();
         ambientSound = GameObject.Find("AmbientSound").GetComponent<AudioSource>();
@@ -48,27 +47,32 @@ public class SlideManager : MonoBehaviour
         {
             buttons[i] = GameObject.Find($"Button{i}").GetComponent<TMButton>();
         }
-        windowInFocus = window.activeSelf;
     }
 
     void Update()
     {
         LastInteraction = Selection.None;
 
-        if (CloseButton.WasClicked() || ToggleRequested)
+        if (ToggleRequested)
         {
             ToggleRequested = false;
-            ToggleActive();
+            window.Toggle();
         }
         else
         {
             ProcessInteractions();
         }
+
+        if (window.IsOpen != soundsOn)
+        {
+            soundsOn = window.IsOpen;
+            ToggleSounds();
+        }
     }
 
-    public void ToggleActive()
+    public void ToggleSounds()
     {
-        if (window.activeSelf)
+        if (!window.IsOpen)
         {
             fxSound.Stop();
             ambientSound.Stop();
@@ -77,9 +81,6 @@ public class SlideManager : MonoBehaviour
         {
             ambientSound.Play();
         }
-
-        window.SetActive(!window.activeSelf);
-        windowInFocus = window.activeSelf;
     }
 
     public void ProcessInteractions()
@@ -183,7 +184,7 @@ public class SlideManager : MonoBehaviour
     {
         var result = singleChoice && button.WasClicked();
 
-        if (windowInFocus) result |= inputManager.AnyKeyUp;
+        if (window && window.IsOpen) result |= inputManager.AnyKeyUp;
 
         return result;
     }

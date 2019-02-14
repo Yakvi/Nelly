@@ -21,7 +21,7 @@ public class TMButton : MonoBehaviour
         buttonObj = transform.Find("Button").gameObject;
         textObj = transform.Find("Button text").gameObject;
         textMesh = textObj.GetComponent<TextMeshProUGUI>();
-        inputManager = GameObject.Find("EventSystem").GetComponent<InputManager>();
+        inputManager = FindObjectOfType<InputManager>();
     }
 
     public bool WasClicked()
