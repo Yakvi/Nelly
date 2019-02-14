@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.UI;
 
 public class SlideManager : MonoBehaviour
 {
@@ -19,11 +17,7 @@ public class SlideManager : MonoBehaviour
     public bool ToggleRequested;
     public Selection LastInteraction;
 
-    private Window window;
-    private Image imageOutput;
-    private TextMeshProUGUI mainOutput;
-    private TextMeshProUGUI botOutput;
-    private TMButton[] buttons;
+    private DialogWindow window;
     private InputManager inputManager;
 
     private AudioSource fxSound;
@@ -33,20 +27,13 @@ public class SlideManager : MonoBehaviour
 
     void Awake()
     {
-        window = gameObject.GetComponentInChildren<Window>();
-        imageOutput = GameObject.Find("MainGraphicOutput").GetComponent<Image>();
-        mainOutput = GameObject.Find("MainTextOutput").GetComponent<TextMeshProUGUI>();
-        botOutput = GameObject.Find("BotTextOutput").GetComponent<TextMeshProUGUI>();
         inputManager = FindObjectOfType<InputManager>();
+
+        window = gameObject.GetComponentInChildren<DialogWindow>();
 
         fxSound = GameObject.Find("FXSound").GetComponent<AudioSource>();
         ambientSound = GameObject.Find("AmbientSound").GetComponent<AudioSource>();
 
-        buttons = new TMButton[(int) Selection.Count];
-        for (int i = 0; i < (int) Selection.Count; i++)
-        {
-            buttons[i] = GameObject.Find($"Button{i}").GetComponent<TMButton>();
-        }
     }
 
     void Update()
@@ -85,36 +72,37 @@ public class SlideManager : MonoBehaviour
 
     public void ProcessInteractions()
     {
-        for (int i = 0; i < buttons.Length; i++)
+        for (int i = 0; i < window.ButtonCount; i++)
         {
-            var button = GetButton(i);
-            if (button)
+            var button = window.GetButton(i);
+            if (button &&
+                (button.IsHot(i) || IsSingleChoiceSelected(button)))
             {
-                if (button.IsHot(i) || IsSingleChoiceSelected(button))
-                {
-                    LastInteraction = (Selection) i;
-                    break;
-                }
+                LastInteraction = (Selection) i;
+                break;
             }
         }
     }
 
     public void ChangeSlide(Slide slideData)
     {
-        ClearSlide();
+        singleChoice = false;
+        window.Clear();
 
         // Rendering
         if (slideData != null)
         {
-            botOutput.text = slideData.DialogText;
-            SetPicture(slideData);
+            window.SetTitle(slideData.ImageText);
+            window.SetSubtitle(slideData.DialogText);
+            window.SetPicture(slideData.Image, slideData.ImageTint);
             SetButtons(slideData.Choices, slideData.IsLinear());
+
             PlaySounds(slideData);
             ChangeLocation(slideData.NewLocation);
         }
         else
         {
-            botOutput.text = "Slide data is not found. GG.";
+            window.SetSubtitle("Slide data is not found. GG.");
             Application.Quit();
         }
     }
@@ -151,12 +139,13 @@ public class SlideManager : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < buttons.Length; i++)
+            for (int i = 0; i < window.ButtonCount; i++)
             {
-                // TODO: choice determination logic
+                // TODO: Actual choice selection? 
+
                 if (i < buttonData.Length && buttonData[i])
                 {
-                    SetButtonText(buttonData[i].Text, i);
+                    window.SetButtonText(buttonData[i].Text, i);
                 }
             }
         }
@@ -165,19 +154,7 @@ public class SlideManager : MonoBehaviour
     private void AddSingleChoiceButton()
     {
         singleChoice = true;
-        SetButtonText(DefaultButtonText);
-    }
-
-    private TMButton GetButton(int index)
-    {
-        TMButton result = null;
-
-        if (buttons[index].IsActive)
-        {
-            result = buttons[index];
-        }
-
-        return result;
+        window.SetButtonText(DefaultButtonText);
     }
 
     private bool IsSingleChoiceSelected(TMButton button)
@@ -188,28 +165,4 @@ public class SlideManager : MonoBehaviour
 
         return result;
     }
-
-    private void SetPicture(Slide slide)
-    {
-        // TODO: Do we want to preserve previous image or reset to nothing? 
-        //       Preserve previous for now, if not, implement in ClearSlide
-        imageOutput.sprite = slide.Image ? slide.Image : null;
-        if (slide.ImageTint != Color.white) imageOutput.color = slide.ImageTint;
-        mainOutput.text = slide.ImageText;
-    }
-
-    private void SetButtonText(string text, int pos = 3)
-    {
-        buttons[pos].SetText(text);
-    }
-
-    private void ClearSlide()
-    {
-        singleChoice = false;
-        foreach (var button in buttons)
-        {
-            button.SetText("");
-        }
-    }
-
 }
