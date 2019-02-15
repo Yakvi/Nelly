@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class PointOfInterest : MonoBehaviour
 {
-    public Location Location;
-
-    private SpriteRenderer spriteRenderer;
-    
+    // params
     public GameObject Tooltip;
     public TextMeshPro TooltipText;
+
+    private SpriteRenderer spriteRenderer;
 
     void Awake()
     {

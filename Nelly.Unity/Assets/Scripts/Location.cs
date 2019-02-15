@@ -7,7 +7,7 @@ using UnityEngine;
 public class Location : ScriptableObject
 {
     public string Name = "";
-    public Vector2 Coordinates;
-    public PointOfInterest POI;
+    public Vector2 Position;
     public Sprite Icon;
+    public bool IsTemporary;    
 }

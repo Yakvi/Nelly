@@ -1019,6 +1019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a06d563777044e64e93b05ed0dda4371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 2003958310}
   DefaultPOI: {fileID: 3614111765317808565, guid: 3b4518643c847dc4dade77a30d0c7923,
     type: 3}
 --- !u!114 &664581367
@@ -1050,7 +1051,6 @@ MonoBehaviour:
   DefaultButtonText: "\u0414\u0430\u043B\u0435\u0435..."
   GlobalSoundVolume: 1
   GlobalAmbientVolume: 1
-  Player: {fileID: 2003958311}
   FullscreenWindow: {fileID: 1536111951964253462, guid: b445164478e27fe4787ccf4a16874153,
     type: 3}
   ToggleRequested: 0

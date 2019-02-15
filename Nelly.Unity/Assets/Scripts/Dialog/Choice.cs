@@ -8,7 +8,8 @@ public class Choice : ScriptableObject
 {
     public string Text = "";
     public Narrative Branch;
-    public Location Destination;
+
+    public Location[] POI;
 
     public float CostInTime = 0f;
     public float CostInMoney = 0f;

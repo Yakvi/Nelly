@@ -12,8 +12,6 @@ public class SlideManager : MonoBehaviour
     [Range(0.0f, 1.0f)]
     public float GlobalAmbientVolume = 1.0f;
 
-    public Transform Player;
-
     public DialogWindow FullscreenWindow;
     // public DialogWindow BordersWindow;
 
@@ -96,6 +94,7 @@ public class SlideManager : MonoBehaviour
     {
         singleChoice = false;
         activeWindow.Clear();
+        mapManager.ClearTempPOI();
 
         // Rendering
         if (slideData != null)
@@ -106,20 +105,12 @@ public class SlideManager : MonoBehaviour
             SetButtons(slideData.Choices, slideData.IsLinear());
 
             PlaySounds(slideData);
-            ChangeLocation(slideData.NewLocation);
+            mapManager.ChangePlayerPosition(slideData.NewLocation);
         }
         else
         {
             activeWindow.SetSubtitle("Slide data is not found. GG.");
             Application.Quit();
-        }
-    }
-
-    private void ChangeLocation(Location location)
-    {
-        if (location != null)
-        {
-            Player.position = location.Coordinates;
         }
     }
 
@@ -153,7 +144,7 @@ public class SlideManager : MonoBehaviour
                 if (i < choices.Length && choice != null)
                 {
                     activeWindow.SetButtonText(choice.Text, i);
-                    //mapManager.SetPOI(choice);
+                    mapManager.SetPOI(choice);
                 }
             }
         }
