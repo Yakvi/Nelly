@@ -212,6 +212,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsActive: 0
+  ButtonSprite: {fileID: 6039987990337436862}
+  ButtonText: {fileID: 2476490697256954001}
 --- !u!1 &6039987990337436862
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,7 +227,7 @@ GameObject:
   - component: {fileID: 3828324423425441751}
   - component: {fileID: 3070603053363929035}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -10,17 +10,15 @@ public class TMButton : MonoBehaviour
 {
     public bool IsActive;
 
-    private GameObject buttonObj;
-    private GameObject textObj;
+    public GameObject ButtonSprite;
+    public GameObject ButtonText;
 
     private InputManager inputManager;
     private TextMeshProUGUI textMesh;
 
     void Awake()
     {
-        buttonObj = transform.Find("Button").gameObject;
-        textObj = transform.Find("Button text").gameObject;
-        textMesh = textObj.GetComponent<TextMeshProUGUI>();
+        textMesh = ButtonText.GetComponent<TextMeshProUGUI>();
         inputManager = FindObjectOfType<InputManager>();
     }
 
@@ -33,8 +31,8 @@ public class TMButton : MonoBehaviour
     public void SetText(string text = "")
     {
         IsActive = !String.IsNullOrWhiteSpace(text);
-        buttonObj.SetActive(IsActive);
-        textObj.SetActive(IsActive);
+        ButtonSprite.SetActive(IsActive);
+        ButtonText.SetActive(IsActive);
 
         textMesh.text = text;
     }
@@ -48,7 +46,7 @@ public class TMButton : MonoBehaviour
 
     private bool IsThisButton(GameObject obj)
     {
-        var result = obj == buttonObj || obj == textObj;
+        var result = obj == ButtonSprite || obj == ButtonText;
         return result;
     }
 }

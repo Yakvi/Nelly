@@ -17,7 +17,10 @@ public class SlideManager : MonoBehaviour
     public bool ToggleRequested;
     public Selection LastInteraction;
 
-    private DialogWindow window;
+    public DialogWindow FullscreenWindow;
+    public DialogWindow BordersWindow;
+
+    private DialogWindow activeWindow;
     private InputManager inputManager;
 
     private AudioSource fxSound;
@@ -29,11 +32,10 @@ public class SlideManager : MonoBehaviour
     {
         inputManager = FindObjectOfType<InputManager>();
 
-        window = gameObject.GetComponentInChildren<DialogWindow>();
-
         fxSound = GameObject.Find("FXSound").GetComponent<AudioSource>();
         ambientSound = GameObject.Find("AmbientSound").GetComponent<AudioSource>();
 
+        activeWindow = Instantiate(FullscreenWindow, gameObject.transform);
     }
 
     void Update()
@@ -43,23 +45,23 @@ public class SlideManager : MonoBehaviour
         if (ToggleRequested)
         {
             ToggleRequested = false;
-            window.Toggle();
+            activeWindow.Toggle();
         }
         else
         {
             ProcessInteractions();
         }
 
-        if (window.IsOpen != soundsOn)
+        if (activeWindow.IsOpen != soundsOn)
         {
-            soundsOn = window.IsOpen;
+            soundsOn = activeWindow.IsOpen;
             ToggleSounds();
         }
     }
 
     public void ToggleSounds()
     {
-        if (!window.IsOpen)
+        if (!activeWindow.IsOpen)
         {
             fxSound.Stop();
             ambientSound.Stop();
@@ -72,9 +74,9 @@ public class SlideManager : MonoBehaviour
 
     public void ProcessInteractions()
     {
-        for (int i = 0; i < window.ButtonCount; i++)
+        for (int i = 0; i < activeWindow.ButtonCount; i++)
         {
-            var button = window.GetButton(i);
+            var button = activeWindow.GetButton(i);
             if (button &&
                 (button.IsHot(i) || IsSingleChoiceSelected(button)))
             {
@@ -87,14 +89,14 @@ public class SlideManager : MonoBehaviour
     public void ChangeSlide(Slide slideData)
     {
         singleChoice = false;
-        window.Clear();
+        activeWindow.Clear();
 
         // Rendering
         if (slideData != null)
         {
-            window.SetTitle(slideData.ImageText);
-            window.SetSubtitle(slideData.DialogText);
-            window.SetPicture(slideData.Image, slideData.ImageTint);
+            activeWindow.SetTitle(slideData.ImageText);
+            activeWindow.SetSubtitle(slideData.DialogText);
+            activeWindow.SetPicture(slideData.Image, slideData.ImageTint);
             SetButtons(slideData.Choices, slideData.IsLinear());
 
             PlaySounds(slideData);
@@ -102,7 +104,7 @@ public class SlideManager : MonoBehaviour
         }
         else
         {
-            window.SetSubtitle("Slide data is not found. GG.");
+            activeWindow.SetSubtitle("Slide data is not found. GG.");
             Application.Quit();
         }
     }
@@ -139,13 +141,13 @@ public class SlideManager : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < window.ButtonCount; i++)
+            for (int i = 0; i < activeWindow.ButtonCount; i++)
             {
                 // TODO: Actual choice selection? 
 
                 if (i < buttonData.Length && buttonData[i])
                 {
-                    window.SetButtonText(buttonData[i].Text, i);
+                    activeWindow.SetButtonText(buttonData[i].Text, i);
                 }
             }
         }
@@ -154,14 +156,14 @@ public class SlideManager : MonoBehaviour
     private void AddSingleChoiceButton()
     {
         singleChoice = true;
-        window.SetButtonText(DefaultButtonText);
+        activeWindow.SetButtonText(DefaultButtonText);
     }
 
     private bool IsSingleChoiceSelected(TMButton button)
     {
         var result = singleChoice && button.WasClicked();
 
-        if (window && window.IsOpen) result |= inputManager.AnyKeyUp;
+        if (activeWindow && activeWindow.IsOpen) result |= inputManager.AnyKeyUp;
 
         return result;
     }
