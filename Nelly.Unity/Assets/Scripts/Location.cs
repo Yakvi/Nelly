@@ -7,7 +7,7 @@ using UnityEngine;
 public class Location : ScriptableObject
 {
     public string Name = "";
-    public Vector3 Coordinates;
+    public Vector2 Coordinates;
     public PointOfInterest POI;
     public Sprite Icon;
 }

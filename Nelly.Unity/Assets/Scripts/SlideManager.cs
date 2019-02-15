@@ -14,13 +14,17 @@ public class SlideManager : MonoBehaviour
 
     public Transform Player;
 
+    public DialogWindow FullscreenWindow;
+    // public DialogWindow BordersWindow;
+
+    [HideInInspector]
     public bool ToggleRequested;
+    [HideInInspector]
     public Selection LastInteraction;
 
-    public DialogWindow FullscreenWindow;
-    public DialogWindow BordersWindow;
-
     private DialogWindow activeWindow;
+    private Canvas canvas;
+    private MapManager mapManager;
     private InputManager inputManager;
 
     private AudioSource fxSound;
@@ -31,11 +35,13 @@ public class SlideManager : MonoBehaviour
     void Awake()
     {
         inputManager = FindObjectOfType<InputManager>();
+        canvas = FindObjectOfType<Canvas>();
+        mapManager = gameObject.GetComponent<MapManager>();
 
         fxSound = GameObject.Find("FXSound").GetComponent<AudioSource>();
         ambientSound = GameObject.Find("AmbientSound").GetComponent<AudioSource>();
 
-        activeWindow = Instantiate(FullscreenWindow, gameObject.transform);
+        activeWindow = Instantiate(FullscreenWindow, canvas.transform);
     }
 
     void Update()
@@ -133,7 +139,7 @@ public class SlideManager : MonoBehaviour
         }
     }
 
-    private void SetButtons(Choice[] buttonData, bool slideIsLinear)
+    private void SetButtons(Choice[] choices, bool slideIsLinear)
     {
         if (slideIsLinear)
         {
@@ -143,11 +149,11 @@ public class SlideManager : MonoBehaviour
         {
             for (int i = 0; i < activeWindow.ButtonCount; i++)
             {
-                // TODO: Actual choice selection? 
-
-                if (i < buttonData.Length && buttonData[i])
+                var choice = choices[i];
+                if (i < choices.Length && choice != null)
                 {
-                    activeWindow.SetButtonText(buttonData[i].Text, i);
+                    activeWindow.SetButtonText(choice.Text, i);
+                    //mapManager.SetPOI(choice);
                 }
             }
         }

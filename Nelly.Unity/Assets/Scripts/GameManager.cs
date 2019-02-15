@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
     //public Slide firstSlide;
     // private bool isPaused = false;
     public GameObject mainMenu;
-    public GameObject dialogArea;
     public GameObject MapOverlay;
 
     private TMButton dialogButton;
@@ -16,7 +15,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         dialogButton = MapOverlay.transform.Find("Dialog Button").GetComponent<TMButton>();
-        slideManager = dialogArea.GetComponent<SlideManager>();
+        slideManager = gameObject.GetComponent<SlideManager>();
 
     }
 
@@ -31,6 +30,5 @@ public class GameManager : MonoBehaviour
     public void NewGame()
     {
         mainMenu.SetActive(false);
-        dialogArea.SetActive(true);
     }
 }

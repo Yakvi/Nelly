@@ -8,24 +8,24 @@ public class PointOfInterest : MonoBehaviour
     public Location Location;
 
     private SpriteRenderer spriteRenderer;
-    private GameObject textBox;
-    private TextMeshProUGUI text;
+    
+    public GameObject Tooltip;
+    public TextMeshPro TooltipText;
 
     void Awake()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
-        textBox = transform.Find("Text").gameObject;
-        text = textBox.GetComponent<TextMeshProUGUI>();
+        Tooltip.SetActive(false);
     }
 
     void OnMouseEnter()
     {
-        textBox.SetActive(true);
+        Tooltip.SetActive(true);
     }
     void OnMouseExit()
     {
-        textBox.SetActive(false);
+        Tooltip.SetActive(false);
     }
 
 }
