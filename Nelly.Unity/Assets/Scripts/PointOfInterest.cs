@@ -9,11 +9,12 @@ public class PointOfInterest : MonoBehaviour
     public GameObject Tooltip;
     public TextMeshPro TooltipText;
 
-    private SpriteRenderer spriteRenderer;
+    [HideInInspector]
+    public SpriteRenderer Icon;
 
     void Awake()
     {
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        Icon = gameObject.GetComponent<SpriteRenderer>();
 
         Tooltip.SetActive(false);
     }

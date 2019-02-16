@@ -16,14 +16,11 @@ public class SlideManager : MonoBehaviour
     // public DialogWindow BordersWindow;
 
     [HideInInspector]
-    public bool ToggleRequested;
-    [HideInInspector]
     public Selection LastInteraction;
+    public DialogWindow ActiveWindow;
 
-    private DialogWindow activeWindow;
     private Canvas canvas;
     private MapManager mapManager;
-    private InputManager inputManager;
 
     private AudioSource fxSound;
     private AudioSource ambientSound;
@@ -32,55 +29,51 @@ public class SlideManager : MonoBehaviour
 
     void Awake()
     {
-        inputManager = FindObjectOfType<InputManager>();
         canvas = FindObjectOfType<Canvas>();
         mapManager = gameObject.GetComponent<MapManager>();
 
         fxSound = GameObject.Find("FXSound").GetComponent<AudioSource>();
         ambientSound = GameObject.Find("AmbientSound").GetComponent<AudioSource>();
 
-        activeWindow = Instantiate(FullscreenWindow, canvas.transform);
+        ActiveWindow = Instantiate(FullscreenWindow, canvas.transform);
     }
 
     void Update()
     {
         LastInteraction = Selection.None;
+        var windowOpen = ActiveWindow.IsOpen();
 
-        if (ToggleRequested)
-        {
-            ToggleRequested = false;
-            activeWindow.Toggle();
-        }
-        else
+        if (windowOpen)
         {
             ProcessInteractions();
         }
 
-        if (activeWindow.IsOpen != soundsOn)
+        if (windowOpen != soundsOn)
         {
-            soundsOn = activeWindow.IsOpen;
-            ToggleSounds();
+            ToggleSounds(windowOpen);
         }
     }
 
-    public void ToggleSounds()
+    public void ToggleSounds(bool playSounds)
     {
-        if (!activeWindow.IsOpen)
+        soundsOn = playSounds;
+
+        if (playSounds)
         {
-            fxSound.Stop();
-            ambientSound.Stop();
+            ambientSound.Play();
         }
         else
         {
-            ambientSound.Play();
+            fxSound.Stop();
+            ambientSound.Stop();
         }
     }
 
     public void ProcessInteractions()
     {
-        for (int i = 0; i < activeWindow.ButtonCount; i++)
+        for (int i = 0; i < ActiveWindow.ButtonCount; i++)
         {
-            var button = activeWindow.GetButton(i);
+            var button = ActiveWindow.GetButton(i);
             if (button &&
                 (button.IsHot(i) || IsSingleChoiceSelected(button)))
             {
@@ -93,15 +86,15 @@ public class SlideManager : MonoBehaviour
     public void ChangeSlide(Slide slideData)
     {
         singleChoice = false;
-        activeWindow.Clear();
+        ActiveWindow.Clear();
         mapManager.ClearTempPOI();
 
         // Rendering
         if (slideData != null)
         {
-            activeWindow.SetTitle(slideData.ImageText);
-            activeWindow.SetSubtitle(slideData.DialogText);
-            activeWindow.SetPicture(slideData.Image, slideData.ImageTint);
+            ActiveWindow.SetTitle(slideData.ImageText);
+            ActiveWindow.SetSubtitle(slideData.DialogText);
+            ActiveWindow.SetPicture(slideData.Image, slideData.ImageTint);
             SetButtons(slideData.Choices, slideData.IsLinear());
 
             PlaySounds(slideData);
@@ -109,7 +102,7 @@ public class SlideManager : MonoBehaviour
         }
         else
         {
-            activeWindow.SetSubtitle("Slide data is not found. GG.");
+            ActiveWindow.SetSubtitle("Slide data is not found. GG.");
             Application.Quit();
         }
     }
@@ -138,12 +131,12 @@ public class SlideManager : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < activeWindow.ButtonCount; i++)
+            for (int i = 0; i < ActiveWindow.ButtonCount; i++)
             {
-                var choice = choices[i];
-                if (i < choices.Length && choice != null)
+                if (i < choices.Length && choices[i])
                 {
-                    activeWindow.SetButtonText(choice.Text, i);
+                    var choice = choices[i];
+                    ActiveWindow.SetButtonText(choice.Text, i);
                     mapManager.SetPOI(choice);
                 }
             }
@@ -153,15 +146,17 @@ public class SlideManager : MonoBehaviour
     private void AddSingleChoiceButton()
     {
         singleChoice = true;
-        activeWindow.SetButtonText(DefaultButtonText);
+        ActiveWindow.SetButtonText(DefaultButtonText);
     }
 
     private bool IsSingleChoiceSelected(TMButton button)
     {
         var result = singleChoice && button.WasClicked();
 
-        if (activeWindow && activeWindow.IsOpen) result |= inputManager.AnyKeyUp;
-
+        // Skip 1 keypress if window was just opened
+ 
+        if (ActiveWindow) result |= ActiveWindow.KeyUpCaptured;
+        
         return result;
     }
 }

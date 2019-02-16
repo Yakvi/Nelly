@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c79b1e1bd0653439928a0b5567a126, type: 3}
   m_Name: Q001-Flashback
   m_EditorClassIdentifier: 
-  Name: Flashback spot
-  Coordinates: {x: -14, y: 3.25, z: 0}
+  Title: Flashback spot
+  Position: {x: -13, y: 3}
+  Icon: {fileID: 0}
+  IsTemporary: 0

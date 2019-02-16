@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     {
         if (dialogButton.WasClicked())
         {
-            slideManager.ToggleRequested = true;
+            slideManager.ActiveWindow.Toggle();
         }
     }
 

@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c79b1e1bd0653439928a0b5567a126, type: 3}
   m_Name: Q001-Alleyway
   m_EditorClassIdentifier: 
-  Name: Alleyway
-  Coordinates: {x: -2.4, y: -0.75, z: 0}
+  Title: Alleyway
+  Position: {x: -1.92, y: -2.82}
+  Icon: {fileID: 0}
+  IsTemporary: 0

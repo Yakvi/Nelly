@@ -5,13 +5,10 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    public GameObject Player;
+    public Transform Map;
+    public Transform Player;
     public PointOfInterest DefaultPOI;
 
-    public void SetPosition(GameObject POI, Vector2 position)
-    {
-        POI.transform.position = position;
-    }
     public void ClearTempPOI()
     {
         // TODO clear list of temp points
@@ -20,6 +17,7 @@ public class MapManager : MonoBehaviour
     {
         foreach (var point in choice.POI)
         {
+
             //TODO instantiate points
             //TODO if temporary store them in a list
         }
@@ -28,7 +26,7 @@ public class MapManager : MonoBehaviour
     {
         if (location != null)
         {
-            SetPosition(Player, location.Position);
+            Player.position = location.Position;
         }
     }
 }
