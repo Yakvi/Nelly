@@ -8,11 +8,14 @@ public class UnitManager : MonoBehaviour
     public Slide ActiveSlide;
     public Narrative CurrentBranch;
     private SlideManager slideManager;
+    private MapManager mapManager;
+    private bool slideChanged;
 
     void Awake()
     {
         CurrentBranch.Reset();
 
+        mapManager = gameObject.GetComponent<MapManager>();
         slideManager = gameObject.GetComponent<SlideManager>();
     }
 
@@ -24,20 +27,32 @@ public class UnitManager : MonoBehaviour
 
     void Update()
     {
+        slideChanged = false;
+
+        ProcessMap();
+        ProcessUI();
+
+        if (slideChanged)
+        {
+            slideManager.ChangeSlide(ActiveSlide);
+        }
+    }
+
+    private void ProcessUI()
+    {
         if (slideManager.isActiveAndEnabled)
         {
             var index = slideManager.LastInteraction;
             if (index != Selection.None) // we have a hit
             {
-                if (ActiveSlide.Choices.Length > (int) index)
+                slideChanged = true;
+                if (ActiveSlide.Choices.Length > (int) index) // We have an option corresponding to the hit
                 {
                     // Get slide based on choice
                     var nextBranch = ActiveSlide.Choices[(int) index]?.Branch;
                     if (nextBranch)
                     {
-                        CurrentBranch = nextBranch;
-                        CurrentBranch.Reset();
-                        ActiveSlide = CurrentBranch.GetNextSlide();
+                        GetBranch(nextBranch);
                     }
                 }
                 else
@@ -45,10 +60,28 @@ public class UnitManager : MonoBehaviour
                     // Get next slide in unit
                     ActiveSlide = GetNextSlideFromUnit();
                 }
-
-                slideManager.ChangeSlide(ActiveSlide);
             }
         }
+    }
+
+    private void ProcessMap()
+    {
+        foreach (var point in mapManager.ActivePOI)
+        {
+            if (point.WasSelected)
+            {
+                point.WasSelected = false;
+                slideChanged = true;
+                GetBranch(point.Branch);
+            }
+        }
+    }
+
+    private void GetBranch(Narrative branch)
+    {
+        CurrentBranch = branch;
+        CurrentBranch.Reset();
+        ActiveSlide = CurrentBranch.GetNextSlide();
     }
 
     private Slide GetNextSlideFromUnit()

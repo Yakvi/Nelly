@@ -10,7 +10,9 @@ public class Slide : Narrative
 {
     // TODO: Extract this even further? To produce a unique item which would be a color / text / image / combination of these
     public Sprite Image;
-    public Location NewLocation;
+    public Location PlayerPosition;
+    //public Location OtherPOI; TODO: Add logic linked to these POI
+
     public Color ImageTint = Color.white;
 
     #region NOTE: Sounds

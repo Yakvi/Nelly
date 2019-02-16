@@ -8,9 +8,9 @@ public class PointOfInterest : MonoBehaviour
     // params
     public GameObject Tooltip;
     public TextMeshPro TooltipText;
-
-    [HideInInspector]
     public SpriteRenderer Icon;
+    public Narrative Branch;
+    public bool WasSelected = false;
 
     void Awake()
     {
@@ -27,5 +27,7 @@ public class PointOfInterest : MonoBehaviour
     {
         Tooltip.SetActive(false);
     }
-
+    void OnMouseUp() {
+        WasSelected = true;
+    }
 }

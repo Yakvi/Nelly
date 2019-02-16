@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: U2_S0
   m_EditorClassIdentifier: 
   Image: {fileID: 0}
-  NewLocation: {fileID: 11400000, guid: a177e6920cae7a64ca23df6eeb6e2229, type: 2}
+  PlayerPosition: {fileID: 11400000, guid: a177e6920cae7a64ca23df6eeb6e2229, type: 2}
   ImageTint: {r: 0.4258633, g: 0.5216074, b: 0.6226415, a: 1}
   Sound: {fileID: 8300000, guid: 22c50859c9289c445ab64411d156e717, type: 3}
   SoundVolume: 1

@@ -98,7 +98,7 @@ public class SlideManager : MonoBehaviour
             SetButtons(slideData.Choices, slideData.IsLinear());
 
             PlaySounds(slideData);
-            mapManager.ChangePlayerPosition(slideData.NewLocation);
+            mapManager.ChangePlayerPosition(slideData.PlayerPosition);
         }
         else
         {
@@ -137,7 +137,7 @@ public class SlideManager : MonoBehaviour
                 {
                     var choice = choices[i];
                     ActiveWindow.SetButtonText(choice.Text, i);
-                    mapManager.SetPOI(choice);
+                    if(choice.POI != null) mapManager.SetPOI(choice);
                 }
             }
         }
@@ -151,12 +151,9 @@ public class SlideManager : MonoBehaviour
 
     private bool IsSingleChoiceSelected(TMButton button)
     {
-        var result = singleChoice && button.WasClicked();
+        var result = singleChoice &&
+            (button.WasClicked() || ActiveWindow.KeyUpCaptured);
 
-        // Skip 1 keypress if window was just opened
- 
-        if (ActiveWindow) result |= ActiveWindow.KeyUpCaptured;
-        
         return result;
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: U0_S5
   m_EditorClassIdentifier: 
   Image: {fileID: 21300000, guid: fd5fc1a2c667d844f874ce05b2883288, type: 3}
-  NewLocation: {fileID: 11400000, guid: 96bc86b7c567dda46a300896f5c851cc, type: 2}
+  PlayerPosition: {fileID: 11400000, guid: 96bc86b7c567dda46a300896f5c851cc, type: 2}
   ImageTint: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
   Sound: {fileID: 0}
   SoundVolume: 1

@@ -15,5 +15,6 @@ MonoBehaviour:
   Text: "\u041F\u0440\u043E\u0435\u0445\u0430\u0442\u044C\u0441\u044F \u043D\u0430
     \u0442\u0440\u0430\u043C\u0432\u0430\u0435"
   Branch: {fileID: 11400000, guid: 3334ddbe0239d9a40a23a5145b9ee350, type: 2}
+  POI: {fileID: 11400000, guid: 746a450ee9ef1ae448108a8d318ebb23, type: 2}
   CostInTime: 0
   CostInMoney: 0
