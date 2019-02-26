@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //public Slide firstSlide;
+    // public Slide firstSlide;
     // private bool isPaused = false;
-    public GameObject mainMenu;
-    public GameObject MapOverlay;
+    public GameObject MainMenuUI;
+    public GameObject MapHUD;
+
+    public AudioSource MusicPlayer;
+    public AudioSource AmbientPlayer;
+    public AudioSource FXPlayer;
 
     private TMButton dialogButton;
     private SlideManager slideManager;
 
     void Awake()
     {
-        dialogButton = MapOverlay.transform.Find("Dialog Button").GetComponent<TMButton>();
+        dialogButton = MapHUD.transform.Find("Dialog Button").GetComponent<TMButton>();
         slideManager = gameObject.GetComponent<SlideManager>();
 
     }
@@ -29,6 +33,6 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
-        mainMenu.SetActive(false);
+        MainMenuUI.SetActive(false);
     }
 }

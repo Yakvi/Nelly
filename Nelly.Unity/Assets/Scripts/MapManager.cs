@@ -7,8 +7,11 @@ public class MapManager : MonoBehaviour
 {
     public Transform Map;
     public Transform Player;
-    public PointOfInterest DefaultPOI;
-    public Sprite DefaultIcon;
+    
+    [SerializeField]
+    private PointOfInterest defaultPOI;
+    [SerializeField]
+    private Sprite defaultIcon;
     
     public List<PointOfInterest> ActivePOI;
     private List<GameObject> tempPOIs;
@@ -31,9 +34,9 @@ public class MapManager : MonoBehaviour
     {
         var source = choice.POI;
 
-        var POI = Instantiate(DefaultPOI, Map);
+        var POI = Instantiate(defaultPOI, Map);
         POI.transform.position = source.Position != null ? source.Position : new Vector2(0, 0);
-        POI.Icon.sprite = source.Icon ? source.Icon : DefaultIcon;
+        POI.Icon.sprite = source.Icon ? source.Icon : defaultIcon;
         POI.TooltipText.text = POI.gameObject.name = source.Title;
 
         POI.Branch = choice.Branch;

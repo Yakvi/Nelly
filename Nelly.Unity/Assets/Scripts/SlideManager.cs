@@ -7,11 +7,7 @@ using UnityEngine.Assertions;
 public class SlideManager : MonoBehaviour
 {
     public string DefaultButtonText = "";
-    [Range(0.0f, 1.0f)]
-    public float GlobalSoundVolume = 1.0f;
-    [Range(0.0f, 1.0f)]
-    public float GlobalAmbientVolume = 1.0f;
-
+    
     public DialogWindow FullscreenWindow;
     // public DialogWindow BordersWindow;
 
@@ -21,9 +17,8 @@ public class SlideManager : MonoBehaviour
 
     private Canvas canvas;
     private MapManager mapManager;
+    private GameManager gameManager;
 
-    private AudioSource fxSound;
-    private AudioSource ambientSound;
     private bool singleChoice;
     private bool soundsOn;
 
@@ -31,9 +26,8 @@ public class SlideManager : MonoBehaviour
     {
         canvas = FindObjectOfType<Canvas>();
         mapManager = gameObject.GetComponent<MapManager>();
+        gameManager = gameObject.GetComponent<GameManager>();
 
-        fxSound = GameObject.Find("FXSound").GetComponent<AudioSource>();
-        ambientSound = GameObject.Find("AmbientSound").GetComponent<AudioSource>();
 
         ActiveWindow = Instantiate(FullscreenWindow, canvas.transform);
     }
@@ -60,12 +54,12 @@ public class SlideManager : MonoBehaviour
 
         if (playSounds)
         {
-            ambientSound.Play();
+            gameManager.AmbientPlayer.Play();
         }
         else
         {
-            fxSound.Stop();
-            ambientSound.Stop();
+            gameManager.FXPlayer.Stop();
+            gameManager.AmbientPlayer.Stop();
         }
     }
 
@@ -111,15 +105,15 @@ public class SlideManager : MonoBehaviour
     {
         if (slideData.Sound != null)
         {
-            fxSound.clip = slideData.Sound;
-            fxSound.volume = GlobalSoundVolume * slideData.SoundVolume;
-            fxSound.Play();
+            gameManager.FXPlayer.clip = slideData.Sound;
+            gameManager.FXPlayer.volume = slideData.SoundVolume;
+            gameManager.FXPlayer.Play();
         }
         if (slideData.Ambient != null)
         {
-            ambientSound.clip = slideData.Ambient;
-            ambientSound.volume = GlobalAmbientVolume * slideData.AmbientVolume;
-            ambientSound.Play();
+            gameManager.AmbientPlayer.clip = slideData.Ambient;
+            gameManager.AmbientPlayer.volume = slideData.AmbientVolume;
+            gameManager.AmbientPlayer.Play();
         }
     }
 
