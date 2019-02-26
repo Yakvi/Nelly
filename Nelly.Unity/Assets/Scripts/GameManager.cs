@@ -6,8 +6,8 @@ public class GameManager : MonoBehaviour
 {
     // public Slide firstSlide;
     // private bool isPaused = false;
-    public GameObject MainMenuUI;
-    public GameObject MapHUD;
+    public HUD MainMenu;
+    public HUD Map;
 
     public AudioSource MusicPlayer;
     public AudioSource AmbientPlayer;
@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        dialogButton = MapHUD.transform.Find("Dialog Button").GetComponent<TMButton>();
+        dialogButton = Map.transform.Find("Dialog Button").GetComponent<TMButton>();
         slideManager = gameObject.GetComponent<SlideManager>();
 
     }
@@ -33,6 +33,6 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
-        MainMenuUI.SetActive(false);
+        MainMenu.Disable();
     }
 }

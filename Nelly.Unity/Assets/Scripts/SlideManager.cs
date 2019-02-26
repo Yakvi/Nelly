@@ -28,7 +28,6 @@ public class SlideManager : MonoBehaviour
         mapManager = gameObject.GetComponent<MapManager>();
         gameManager = gameObject.GetComponent<GameManager>();
 
-
         ActiveWindow = Instantiate(FullscreenWindow, canvas.transform);
     }
 

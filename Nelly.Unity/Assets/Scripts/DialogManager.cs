@@ -3,18 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitManager : MonoBehaviour
+public class DialogManager : MonoBehaviour
 {
     public Slide ActiveSlide;
     public Narrative CurrentBranch;
+    
+    private GameManager gameManager;
     private SlideManager slideManager;
     private MapManager mapManager;
+    
     private bool slideChanged;
 
     void Awake()
     {
         CurrentBranch.Reset();
 
+        gameManager = gameObject.GetComponent<GameManager>();
         mapManager = gameObject.GetComponent<MapManager>();
         slideManager = gameObject.GetComponent<SlideManager>();
     }
