@@ -28,6 +28,7 @@ public class SlideManager : MonoBehaviour
         mapManager = gameObject.GetComponent<MapManager>();
         gameManager = gameObject.GetComponent<GameManager>();
 
+        // TODO: DEBUG ONLY! Remove on release
         ActiveWindow = Instantiate(FullscreenWindow, canvas.transform);
     }
 
@@ -45,6 +46,11 @@ public class SlideManager : MonoBehaviour
         {
             ToggleSounds(windowOpen);
         }
+    }
+
+    public void Restart() {
+        if(ActiveWindow) GameObject.Destroy(ActiveWindow.gameObject);
+        ActiveWindow = Instantiate(FullscreenWindow, canvas.transform);
     }
 
     public void ToggleSounds(bool playSounds)

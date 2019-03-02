@@ -7,6 +7,7 @@ using UnityEngine;
 public class Location : ScriptableObject
 {
     public string Title = "";
+    // TODO: draggable gizmo
     public Vector2 Position;
     public Sprite Icon;
     public bool IsTemporary;    

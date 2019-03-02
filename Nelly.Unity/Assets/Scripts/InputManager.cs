@@ -45,6 +45,7 @@ public class InputManager : StandaloneInputModule
         return result;
     }
 
+    // NOTE: currently unused
     public Vector2 GetPlayerInput()
     {
         return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));

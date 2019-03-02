@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class DialogManager : MonoBehaviour
 {
-    public Slide ActiveSlide;
-    public Narrative CurrentBranch;
+    public Narrative StartingBranch;
+    [SerializeField]
+    private Narrative currentBranch;
+    private Slide activeSlide;
     
     private GameManager gameManager;
     private SlideManager slideManager;
@@ -16,8 +18,6 @@ public class DialogManager : MonoBehaviour
 
     void Awake()
     {
-        CurrentBranch.Reset();
-
         gameManager = gameObject.GetComponent<GameManager>();
         mapManager = gameObject.GetComponent<MapManager>();
         slideManager = gameObject.GetComponent<SlideManager>();
@@ -25,8 +25,8 @@ public class DialogManager : MonoBehaviour
 
     void Start()
     {
-        ActiveSlide = CurrentBranch.GetNextSlide();
-        slideManager.ChangeSlide(ActiveSlide);
+        GetBranch(StartingBranch);
+        slideManager.ChangeSlide(activeSlide);
     }
 
     void Update()
@@ -38,8 +38,14 @@ public class DialogManager : MonoBehaviour
 
         if (slideChanged)
         {
-            slideManager.ChangeSlide(ActiveSlide);
+            slideManager.ChangeSlide(activeSlide);
         }
+    }
+
+    public void Restart()
+    {
+        GetBranch(StartingBranch);
+        slideManager.ChangeSlide(activeSlide);
     }
 
     private void ProcessUI()
@@ -50,10 +56,10 @@ public class DialogManager : MonoBehaviour
             if (index != Selection.None) // we have a hit
             {
                 slideChanged = true;
-                if (ActiveSlide.Choices.Length > (int) index) // We have an option corresponding to the hit
+                if (activeSlide.Choices.Length > (int) index) // We have an option corresponding to the hit
                 {
                     // Get slide based on choice
-                    var nextBranch = ActiveSlide.Choices[(int) index]?.Branch;
+                    var nextBranch = activeSlide.Choices[(int) index]?.Branch;
                     if (nextBranch)
                     {
                         GetBranch(nextBranch);
@@ -62,7 +68,7 @@ public class DialogManager : MonoBehaviour
                 else
                 {
                     // Get next slide in unit
-                    ActiveSlide = GetNextSlideFromUnit();
+                    activeSlide = GetNextSlideFromUnit();
                 }
             }
         }
@@ -83,21 +89,21 @@ public class DialogManager : MonoBehaviour
 
     private void GetBranch(Narrative branch)
     {
-        CurrentBranch = branch;
-        CurrentBranch.Reset();
-        ActiveSlide = CurrentBranch.GetNextSlide();
+        currentBranch = branch;
+        currentBranch.Reset();
+        activeSlide = currentBranch.GetNextSlide();
     }
 
     private Slide GetNextSlideFromUnit()
     {
-        var result = CurrentBranch.GetNextSlide();
+        var result = currentBranch.GetNextSlide();
 
         if (!result)
         {
-            CurrentBranch = CurrentBranch.GetNextUnit();
-            if (CurrentBranch != null)
+            currentBranch = currentBranch.GetNextUnit();
+            if (currentBranch != null)
             {
-                result = CurrentBranch.GetNextSlide();
+                result = currentBranch.GetNextSlide();
             }
             else
             {

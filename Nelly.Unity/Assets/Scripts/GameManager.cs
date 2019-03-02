@@ -13,26 +13,38 @@ public class GameManager : MonoBehaviour
     public AudioSource AmbientPlayer;
     public AudioSource FXPlayer;
 
-    private TMButton dialogButton;
     private SlideManager slideManager;
+    private DialogManager dialogManager;
+
+    private TMButton newGameButton;
+    private TMButton dialogButton;
 
     void Awake()
     {
-        dialogButton = Map.transform.Find("Dialog Button").GetComponent<TMButton>();
-        slideManager = gameObject.GetComponent<SlideManager>();
+        newGameButton = MainMenu.ActiveButtons[0];
+        dialogButton = Map.ActiveButtons[0];
 
+        slideManager = gameObject.GetComponent<SlideManager>();
+        dialogManager = gameObject.GetComponent<DialogManager>();
     }
 
     void Update()
     {
+        if (newGameButton.WasClicked())
+        {
+            NewGame();
+        }
+        
         if (dialogButton.WasClicked())
         {
             slideManager.ActiveWindow.Toggle();
         }
     }
 
-    public void NewGame()
+    void NewGame()
     {
         MainMenu.Disable();
+        slideManager.Restart();
+        dialogManager.Restart();
     }
 }
