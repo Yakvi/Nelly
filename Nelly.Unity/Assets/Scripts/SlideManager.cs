@@ -7,7 +7,7 @@ using UnityEngine.Assertions;
 public class SlideManager : MonoBehaviour
 {
     public string DefaultButtonText = "";
-    
+
     public DialogWindow FullscreenWindow;
     // public DialogWindow BordersWindow;
 
@@ -29,27 +29,31 @@ public class SlideManager : MonoBehaviour
         gameManager = gameObject.GetComponent<GameManager>();
 
         // TODO: DEBUG ONLY! Remove on release
-        ActiveWindow = Instantiate(FullscreenWindow, canvas.transform);
+        // ActiveWindow = Instantiate(FullscreenWindow, canvas.transform);
     }
 
     void Update()
     {
         LastInteraction = Selection.None;
-        var windowOpen = ActiveWindow.IsOpen();
-
-        if (windowOpen)
+        if (ActiveWindow)
         {
-            ProcessInteractions();
-        }
+            var windowOpen = ActiveWindow.IsOpen();
 
-        if (windowOpen != soundsOn)
-        {
-            ToggleSounds(windowOpen);
+            if (windowOpen)
+            {
+                ProcessInteractions();
+            }
+
+            if (windowOpen != soundsOn)
+            {
+                ToggleSounds(windowOpen);
+            }
         }
     }
 
-    public void Restart() {
-        if(ActiveWindow) GameObject.Destroy(ActiveWindow.gameObject);
+    public void Restart()
+    {
+        if (ActiveWindow) GameObject.Destroy(ActiveWindow.gameObject);
         ActiveWindow = Instantiate(FullscreenWindow, canvas.transform);
     }
 
@@ -84,26 +88,34 @@ public class SlideManager : MonoBehaviour
 
     public void ChangeSlide(Slide slideData)
     {
+        if (ActiveWindow)
+        {
+            ClearSlide();
+
+            // Rendering
+            if (slideData != null)
+            {
+                ActiveWindow.SetTitle(slideData.ImageText);
+                ActiveWindow.SetSubtitle(slideData.DialogText);
+                ActiveWindow.SetPicture(slideData.Image, slideData.ImageTint);
+                SetButtons(slideData.Choices, slideData.IsLinear());
+
+                PlaySounds(slideData);
+                mapManager.ChangePlayerPosition(slideData.PlayerPosition);
+            }
+            else
+            {
+                ActiveWindow.SetSubtitle("Slide data is not found. GG.");
+                Application.Quit();
+            }
+        }
+    }\
+
+    private void ClearSlide()
+    {
         singleChoice = false;
         ActiveWindow.Clear();
         mapManager.ClearTempPOI();
-
-        // Rendering
-        if (slideData != null)
-        {
-            ActiveWindow.SetTitle(slideData.ImageText);
-            ActiveWindow.SetSubtitle(slideData.DialogText);
-            ActiveWindow.SetPicture(slideData.Image, slideData.ImageTint);
-            SetButtons(slideData.Choices, slideData.IsLinear());
-
-            PlaySounds(slideData);
-            mapManager.ChangePlayerPosition(slideData.PlayerPosition);
-        }
-        else
-        {
-            ActiveWindow.SetSubtitle("Slide data is not found. GG.");
-            Application.Quit();
-        }
     }
 
     private void PlaySounds(Slide slideData)
@@ -136,7 +148,7 @@ public class SlideManager : MonoBehaviour
                 {
                     var choice = choices[i];
                     ActiveWindow.SetButtonText(choice.Text, i);
-                    if(choice.POI != null) mapManager.SetPOI(choice);
+                    if (choice.POI != null) mapManager.SetPOI(choice);
                 }
             }
         }

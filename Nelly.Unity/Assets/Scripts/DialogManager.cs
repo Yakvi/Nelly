@@ -9,11 +9,11 @@ public class DialogManager : MonoBehaviour
     [SerializeField]
     private Narrative currentBranch;
     private Slide activeSlide;
-    
+
     private GameManager gameManager;
     private SlideManager slideManager;
     private MapManager mapManager;
-    
+
     private bool slideChanged;
 
     void Awake()
