@@ -109,7 +109,7 @@ public class SlideManager : MonoBehaviour
                 Application.Quit();
             }
         }
-    }\
+    }
 
     private void ClearSlide()
     {

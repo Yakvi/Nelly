@@ -7,3 +7,11 @@
 
     None = 99
 }
+
+public enum Status {
+    Inactive,
+    Available,
+    Active,
+    InProgress,
+    Completed,
+}
