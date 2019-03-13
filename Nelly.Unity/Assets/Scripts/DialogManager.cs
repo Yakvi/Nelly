@@ -25,8 +25,7 @@ public class DialogManager : MonoBehaviour
 
     void Start()
     {
-        GetBranch(StartingBranch);
-        slideManager.ChangeSlide(activeSlide);
+        Restart();
     }
 
     void Update()
@@ -44,8 +43,12 @@ public class DialogManager : MonoBehaviour
 
     public void Restart()
     {
-        GetBranch(StartingBranch);
-        slideManager.ChangeSlide(activeSlide);
+        if (StartingBranch)
+        {
+            StartBranch(StartingBranch);
+            slideManager.Restart();
+            slideManager.ChangeSlide(activeSlide);
+        }
     }
 
     private void ProcessUI()
@@ -62,7 +65,7 @@ public class DialogManager : MonoBehaviour
                     var nextBranch = activeSlide.Choices[(int) index]?.Branch;
                     if (nextBranch)
                     {
-                        GetBranch(nextBranch);
+                        StartBranch(nextBranch);
                     }
                 }
                 else
@@ -82,15 +85,15 @@ public class DialogManager : MonoBehaviour
             {
                 point.WasSelected = false;
                 slideChanged = true;
-                GetBranch(point.Branch);
+                StartBranch(point.Branch);
             }
         }
     }
 
-    private void GetBranch(Narrative branch)
+    private void StartBranch(Narrative branch)
     {
+        branch.Reset();
         currentBranch = branch;
-        currentBranch.Reset();
         activeSlide = currentBranch.GetNextSlide();
     }
 

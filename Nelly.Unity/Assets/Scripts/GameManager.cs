@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
     void NewGame()
     {
         MainMenu.Disable();
-        slideManager.Restart();
-        dialogManager.Restart();
+        // dialogManager.Restart(); For now, we don't enable dialog window by default
     }
 }
