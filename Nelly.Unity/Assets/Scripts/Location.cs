@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [System.Serializable]
@@ -10,5 +11,5 @@ public class Location : ScriptableObject
     // TODO: draggable gizmo
     public Vector2 Position;
     public Sprite Icon;
-    public bool IsTemporary;    
+    public bool IsTemporary;
 }
