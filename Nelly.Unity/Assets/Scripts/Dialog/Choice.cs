@@ -7,7 +7,7 @@ using UnityEngine;
 public class Choice : ScriptableObject 
 {
     public string Text = "";
-    public Narrative Branch;
+    public ScriptableObject Branch;
 
     public Location POI;
 

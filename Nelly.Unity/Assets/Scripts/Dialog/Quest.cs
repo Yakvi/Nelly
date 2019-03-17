@@ -6,27 +6,25 @@ using UnityEngine;
 
 [System.Serializable]
 [CreateAssetMenu(fileName = "Quest", menuName = "Game/Dialog/Quest", order = 0)]
-public class Quest : Narrative
+public class Quest : Location, INarrative
 {
     public Status QuestStatus;
-    public Narrative StartingBranch;
-    public Location StartingPosition;
+    public INarrative StartingBranch;
 
-    public Narrative[] BranchTree;
+    public INarrative[] BranchTree;
+    private INarrative currentBranch;
 
-    private Narrative currentBranch;
-
-    public override Slide GetNextSlide()
+    public Slide GetNextSlide()
     {
-        return null; //TODO
+        throw new NotImplementedException();
     }
 
-    public override Narrative GetNextUnit()
+    public INarrative GetNextUnit()
     {
-        return null; //TODO
+        throw new NotImplementedException();
     }
 
-    public override void Reset()
+    public void Reset()
     {
         QuestStatus = Status.Inactive;
         currentBranch = StartingBranch;

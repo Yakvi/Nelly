@@ -1,4 +1,4 @@
-﻿public enum Selection {
+﻿public enum PlayerChoice {
     First = 0, 
     Second = 1,
     Third = 2,

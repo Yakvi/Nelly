@@ -6,7 +6,7 @@ using UnityEngine;
 
 [System.Serializable]
 [CreateAssetMenu(fileName = "Slide", menuName = "Game/Dialog/Slide", order = 0)]
-public class Slide : Narrative
+public class Slide : ScriptableObject, INarrative
 {
     // TODO: Extract this even further? To produce a unique item which would be a color / text / image / combination of these
     public Sprite Image;
@@ -31,9 +31,10 @@ public class Slide : Narrative
     public string DialogText = "";
     public Choice[] Choices;
 
-    public override Slide GetNextSlide() => this;
-    public override Narrative GetNextUnit() => null;
-    public override void Reset()
+    public Slide GetNextSlide() => this;
+    public INarrative GetNextUnit() => null;
+    
+    public void Reset()
     {
         // No action needed for now
     }

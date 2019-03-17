@@ -5,35 +5,42 @@ using UnityEngine;
 
 [System.Serializable]
 [CreateAssetMenu(fileName = "Unit", menuName = "Game/Dialog/Unit", order = 0)]
-public class Unit : Narrative
+public class Unit : ScriptableObject, INarrative
 {
     public Slide[] Slides;
-    public Narrative NextUnit;
+    public ScriptableObject NextUnit;
     private int currentSlide;
 
-    public override void Reset()
+    public void Reset()
     {
         currentSlide = 0;
     }
 
-    public override Slide GetNextSlide()
+    public Slide GetNextSlide()
     {
         Slide result = null;
         if (currentSlide < Slides.Length)
         {
             result = Slides[currentSlide++];
-        } else
+        }
+        else
         {
-            
+
         }
 
         return result;
     }
 
-    public override Narrative GetNextUnit()
+    public INarrative GetNextUnit()
     {
-            if (NextUnit) NextUnit.Reset();
+        INarrative next = null;
 
-            return NextUnit;
+        if (NextUnit != null)
+        {
+            next = NextUnit as INarrative;
+            next.Reset();
+        }
+
+        return next;
     }
 }

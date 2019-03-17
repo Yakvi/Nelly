@@ -12,7 +12,7 @@ public class SlideManager : MonoBehaviour
     // public DialogWindow BordersWindow;
 
     [HideInInspector]
-    public Selection LastInteraction;
+    public PlayerChoice LastInteraction;
     public DialogWindow ActiveWindow;
 
     private Canvas canvas;
@@ -34,7 +34,7 @@ public class SlideManager : MonoBehaviour
 
     void Update()
     {
-        LastInteraction = Selection.None;
+        LastInteraction = PlayerChoice.None;
         if (ActiveWindow)
         {
             var windowOpen = ActiveWindow.IsOpen();
@@ -80,7 +80,7 @@ public class SlideManager : MonoBehaviour
             if (button &&
                 (button.IsHot(i) || IsSingleChoiceSelected(button)))
             {
-                LastInteraction = (Selection) i;
+                LastInteraction = (PlayerChoice) i;
                 break;
             }
         }

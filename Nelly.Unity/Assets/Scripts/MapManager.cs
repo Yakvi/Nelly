@@ -37,7 +37,7 @@ public class MapManager : MonoBehaviour
         POI.Icon.sprite = source.Icon ? source.Icon : DefaultIcon;
         POI.TooltipText.text = POI.gameObject.name = source.Title;
 
-        POI.Branch = choice.Branch;
+        POI.Branch = choice.Branch as INarrative;
         ActivePOI.Add(POI);
 
         if (source.IsTemporary)

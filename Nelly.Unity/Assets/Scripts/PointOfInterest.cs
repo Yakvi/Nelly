@@ -9,7 +9,7 @@ public class PointOfInterest : MonoBehaviour
     public GameObject Tooltip;
     public TextMeshPro TooltipText;
     public SpriteRenderer Icon;
-    public Narrative Branch;
+    public INarrative Branch;
     public bool WasSelected = false;
 
     void Awake()

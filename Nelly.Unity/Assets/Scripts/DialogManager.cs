@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class DialogManager : MonoBehaviour
 {
-    public Narrative StartingBranch;
+    public ScriptableObject StartingBranch;
     [SerializeField]
-    private Narrative currentBranch;
+    private INarrative currentBranch;
     private Slide activeSlide;
 
     private GameManager gameManager;
@@ -43,9 +43,10 @@ public class DialogManager : MonoBehaviour
 
     public void Restart()
     {
-        if (StartingBranch)
+        if (StartingBranch != null)
         {
-            StartBranch(StartingBranch);
+            var branch = StartingBranch as INarrative;
+            StartBranch(branch);
             slideManager.Restart();
             slideManager.ChangeSlide(activeSlide);
         }
@@ -56,16 +57,16 @@ public class DialogManager : MonoBehaviour
         if (slideManager.isActiveAndEnabled)
         {
             var index = slideManager.LastInteraction;
-            if (index != Selection.None) // we have a hit
+            if (index != PlayerChoice.None) // we have a hit
             {
                 slideChanged = true;
                 if (activeSlide.Choices.Length > (int) index) // We have an option corresponding to the hit
                 {
                     // Get slide based on choice
                     var nextBranch = activeSlide.Choices[(int) index]?.Branch;
-                    if (nextBranch)
+                    if (nextBranch != null)
                     {
-                        StartBranch(nextBranch);
+                        StartBranch(nextBranch as INarrative);
                     }
                 }
                 else
@@ -90,7 +91,7 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    private void StartBranch(Narrative branch)
+    private void StartBranch(INarrative branch)
     {
         branch.Reset();
         currentBranch = branch;
@@ -101,7 +102,7 @@ public class DialogManager : MonoBehaviour
     {
         var result = currentBranch.GetNextSlide();
 
-        if (!result)
+        if (result == null)
         {
             currentBranch = currentBranch.GetNextUnit();
             if (currentBranch != null)
