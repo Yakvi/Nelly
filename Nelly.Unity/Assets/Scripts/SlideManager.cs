@@ -126,10 +126,11 @@ public class SlideManager : MonoBehaviour
             gameManager.FXPlayer.volume = slideData.SoundVolume;
             gameManager.FXPlayer.Play();
         }
-        if (slideData.Ambient != null)
+        // TODO: extract this somewhere more appropriate
+        if (slideData.PlayerPosition.Ambient != null)
         {
-            gameManager.AmbientPlayer.clip = slideData.Ambient;
-            gameManager.AmbientPlayer.volume = slideData.AmbientVolume;
+            gameManager.AmbientPlayer.clip = slideData.PlayerPosition.Ambient;
+            gameManager.AmbientPlayer.volume = slideData.PlayerPosition.AmbientVolume;
             gameManager.AmbientPlayer.Play();
         }
     }

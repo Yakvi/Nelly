@@ -12,4 +12,8 @@ public class Location : ScriptableObject
     public Vector2 Position;
     public Sprite Icon;
     public bool IsTemporary;
+    
+    public AudioClip Ambient;
+    [Range(0.0f, 1.0f)]
+    public float AmbientVolume = 1.0f;
 }
